@@ -8,18 +8,19 @@
 
 static byte compute_CRC(byte byteEval)
 {
-    const byte generator = 0x1D;
-    //counter should be length of byteEval, which is byte
-    uint16_t counter=8;
+    uint16_t counter;
     uint8_t MSB=0;
     uint8_t newbit=0;
+
+    const byte generator = 0x1D;
+    //counter should be length of byteEval, which is byte
     // Initialize CRC register with zero
     byte crc = byteEval;
     for(counter=0;counter<8;counter++)
     {
         // Get MSB
         MSB = (crc&0x80);
-        // Get bit data value into crc
+        // Get new bit data value into crc
         newbit = byteEval&0x80;
         //Shift data
         byteEval = byteEval<<1;
@@ -37,7 +38,7 @@ static byte compute_CRC(byte byteEval)
             crc = crc<<1;
         }
         //Print all values
-        printf("data=%x,newbit=%x,crc=%x,MSB=%x",byteEval,newbit,crc,MSB);
+        printf("data=%x,newbit=%x,crc=%x,MSB=%x \n",byteEval,newbit,crc,MSB);
     }
 }
 
@@ -48,5 +49,5 @@ void main()
     //Calculate crc
     uint8_t crc = compute_CRC(data);
     //print crc & data
-    printf("Data = %x, CRC = %x",data,crc);
+    printf("Data = %x, CRC = %x \n",data,crc);
 }
