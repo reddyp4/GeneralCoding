@@ -1,32 +1,49 @@
-/*
-You are given an integer array arr. Sort the integers in the array in ascending order by the number of 1's in their binary representation and in case of two or more integers have the same number of 1's you have to sort them in ascending order.
-
-Return the array after sorting it.
-Example 1:
-
-Input: arr = [0,1,2,3,4,5,6,7,8]
-Output: [0,1,2,4,8,3,5,6,7]
-Explantion: [0] is the only integer with 0 bits.
-[1,2,4,8] all have 1 bit.
-[3,5,6] have 2 bits.
-[7] has 3 bits.
-The sorted array by bits is [0,1,2,4,8,3,5,6,7]
-Example 2:
-
-Input: arr = [1024,512,256,128,64,32,16,8,4,2,1]
-Output: [1,2,4,8,16,32,64,128,256,512,1024]
-Explantion: All integers have 1 bit in the binary representation, you should just sort them in ascending order.
-*/
 
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* sortByBits(int* arr, int arrSize, int* returnSize){
+#include <stdlib.h>
 
+int getBits(int a)
+{
+    int val=0;
+    while(a>0)
+    {
+        val+=1;
+        a = a^(a-1);
+    }
+    return val;
+}
+
+int* sortByBits(int* arr, int arrSize, int* returnSize){
+    // Malloc the final array
+    int* final = (int*)malloc(arrSize*sizeof(int));
+    //Set returnSize
+    *returnSize = arrSize;
+
+    // Get Bits first
+    int bits[arrSize];
+    for(i=0;i<arrSize;i++)
+    {
+        bits[i] = getBits(*(arr+i));
+    }
+    // Sort array based on bits
+    // 
+    return final;
 }
 
 int main(void) 
 {
+    int* nums;
 
+    int array[9] = {0,1,2,3,4,5,6,7,8};
+    nums = &array[0];
+    int* final;
+    int num = 9;
+    int* returnSize;
+    returnSize = &num;
+    final = sortByBits(nums,9,returnSize);
+
+    //printf("Missing Number = %d\n",missing);
     return 0;
 }

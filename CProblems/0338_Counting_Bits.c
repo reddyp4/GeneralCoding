@@ -70,6 +70,6 @@ int main(void)
         //printf("Number of bits of %d is %d\n",n,*(returnSize+k));
         printf("%d, ",*(returnSize+k));
     }
-    printf("%d ]\n",*(returnSize+k));
+    printf("%d]\n",*(returnSize+k));
     return 0;
 }
