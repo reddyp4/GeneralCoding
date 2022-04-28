@@ -1,36 +1,43 @@
 #Quick Sort Algorithm
 
 #Structure: QuickSort algo->Partition->Recursion
-def swap(i,j):
-    c=i
-    i=j
-    i=c
+def swap(arr,i,j):
+    print(f"Swap: i={i},j={j}")
+    c=arr[i]
+    arr[i]=arr[j]
+    arr[j]=c
 
 #Partition-arrange lower to left, higher to right
 def Partition(arr,low,high):
-    pivot = arr[low]
+    print(f"Entering Partition: arr={arr}")
+    pivot = len(arr)-1
     i=low
     j=high
-    while(i<j):
-        while(arr[i]<pivot):
-            i+=1;
-        while(arr[j]>pivot):
-            j-=1;
-        if(i<j):
-            swap(arr[i],arr[j])
-    swap(arr[low],arr[j])
+    if(i<j):
+        if(arr[i]<arr[pivot]):
+            i+=1
+        if(arr[j]>arr[pivot]):
+            j-=1
+        if(arr[i]>arr[j]):
+            swap(arr,i,j)
+    swap(arr,pivot,j)
     return j
 
 #Actual Quicksort
-def quickSort(start,end):
-    pivot=(int)(end-start)/2
+def quickSort(arr,start,end):
+    print("Entering QuickSort:arr={arr}")
+    pivot=len(arr)-1
     low=start
     high=end
-    while(low<high):
+    print(f"QuickSort: pivot={pivot},low={low},high={high}")
+    if(low<high):
         j=Partition(arr,low,high)
-        quickSort(low,j)
-        quickSort(j+1,high)
+        #print(f"Finished Partition,arr={arr}")
+        quickSort(arr,low,j-1)
+        quickSort(arr,j+1,high)
 
 arr = [10,80,30,90,40,50,70]
 len1 = len(arr)
-quickSort(0,len1-1)
+#running pivot as last element
+quickSort(arr,0,len1-2)
+
