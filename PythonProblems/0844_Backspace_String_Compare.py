@@ -24,30 +24,52 @@ Explanation: s becomes "c" while t becomes "b".
 
 #Method-1: Brute Force - evaluate strings, string compare
 class Solution:
+    def __init__(self) -> None:
+        pass
+    
+    def push(self, s:str, c:str) -> str:
+        s1 = s+c
+        #print(f"In push: s1={s1}")
+        return s1
+    
+    def pop(self, s:str) -> str:
+        s1 = s[0:len(s)-1:1]
+        #print(f"In pop: s={s}, len={len(s)},s1={s1}")
+        return s1
+    
     def backspaceString(self, s: str) -> str:
         len1=len(s)
         s1 = ""
-        for i in range(0,len1-2):
-            if(s[i+1]=="#"):
-                i+=1
+        for i in range(0,len1):
+            if(s[i]=="#"):
+                s1=self.pop(s1)
             else:
-                s1=s1+s[i]
-        if(s[len1-1]!="#"):
-            s1=s1+s[len1-1]
+                s1=self.push(s1,s[i])
+        #print(f"Final String={s1}")
         return s1
 
     def backspaceCompare(self, s: str, t: str) -> bool:
         s1=self.backspaceString(s)
         t1=self.backspaceString(t)
+        print(f"s={s1},t={t1}")
         if(s1==t1):
             return True
         else:
             return False
         return False
 
+''''
+#Test case1
 s="ab#c"
 t="ad#c"
-val=Solution.backspaceCompare(s,t)
+'''
+
+#Test case2
+s="ab##"
+t="c#d#"
+
+sol=Solution()
+val=sol.backspaceCompare(s,t)
 if(val):
     print(f"s:{s},t={t} are same!")
 else:
