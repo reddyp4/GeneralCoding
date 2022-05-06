@@ -87,20 +87,20 @@ class Solution:
         #check complementary numbers
         # Iterate till there is no carry
         if((x+y)!=0):
-            while (y != 0):
-                # carry now contains common
-                # set bits of x and y
-                carry = x & y 
-                # Sum of bits of x and y where at
-                # least one of the bits is not set
-                x = x ^ y
-                # Carry is shifted by one so that  
-                # adding it to x gives the required sum
-                y = carry << 1
-                print(y)
+            for i in range(0,32):
+                if(y != 0):
+                    # carry now contains common
+                    # set bits of x and y
+                    carry = x & y 
+                    # Sum of bits of x and y where at
+                    # least one of the bits is not set
+                    x = x ^ y
+                    # Carry is shifted by one so that  
+                    # adding it to x gives the required sum
+                    y = carry << 1
+                    print(f"x={x},y={y},carry={carry}")
             return x
-        else:
-            return 0
+        return 0
 
 #testcase1
 #a=1
@@ -111,6 +111,9 @@ b=-8
 
 a=-1
 b=1
+
+a=-14
+b=16
 
 sol=Solution()
 #Sum=sol.getSum(a,b)
