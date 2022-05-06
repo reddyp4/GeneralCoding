@@ -21,6 +21,17 @@ from ctypes import sizeof
 
 
 class Solution:
+    def printBit(self,num:int):
+        s=f"Num={num}="
+        for i in range(31,-1,-1):
+            bit = (num&(0b1<<i))>>i
+            s=s+str(bit)
+        print(s)
+
+    def twoComplement(self,num:int) -> int:
+        num = pow(2,32)-num
+        return num
+
     def getSum(self, a: int, b: int) -> int:
         #Get binary representations
         #already a,b
@@ -31,7 +42,7 @@ class Solution:
         sum=0
         carryon=0
         newbit=0
-        for i in range(1,32):
+        for i in range(1,33):
             bita = (a&(0x01)<<(i-1))>>(i-1)
             bitb = (b&(0x01)<<(i-1))>>(i-1)
             if(bita&bitb):
@@ -64,16 +75,50 @@ class Solution:
             #assign newbit to sum
             #print(f"i={i},bita={bita},bitb={bitb},newbit={newbit},carryon={carryon}")
             sum = (sum|(newbit<<(i-1)))
-
+        #Check 2's complement, if MSB==1, return 2's complement
+        #if(sum&(0b01<<32)==1):
+        if(((sum&(0b01<<31))>>31)==1):
+            print("True")
+            sum = -self.twoComplement(sum)
+        print(sum)
         return sum
 
+    def getSum2(self,x, y):
+        #check complementary numbers
+        # Iterate till there is no carry
+        if((x+y)!=0):
+            while (y != 0):
+                # carry now contains common
+                # set bits of x and y
+                carry = x & y 
+                # Sum of bits of x and y where at
+                # least one of the bits is not set
+                x = x ^ y
+                # Carry is shifted by one so that  
+                # adding it to x gives the required sum
+                y = carry << 1
+                print(y)
+            return x
+        else:
+            return 0
+
 #testcase1
-a=1
-b=3
+#a=1
+#b=3
 #testcase2
 a=-12
 b=-8
+
+a=-1
+b=1
+
 sol=Solution()
-Sum=sol.getSum(a,b)
+#Sum=sol.getSum(a,b)
+
+Sum = sol.getSum2(a,b)
+
+#sol.printBit(a)
+#sol.printBit(b)
+#sol.printBit(Sum)
 print(f"a={a},b={b},sum={Sum},actualsum={a+b}")
-print(f"a={bin(a)},b={bin(b)},sum={bin(Sum)},actualsum={bin(a+b)}")
+#print(f"a={bin(a)},b={bin(b)},sum={bin(Sum)},actualsum={bin(a+b)}")
