@@ -23,13 +23,13 @@ from ctypes import sizeof
 class Solution:
     def printBit(self,num:int):
         s=f"Num={num}="
-        for i in range(31,-1,-1):
+        for i in range(32,-1,-1):
             bit = (num&(0b1<<i))>>i
             s=s+str(bit)
         print(s)
 
     def twoComplement(self,num:int) -> int:
-        num = pow(2,32)-num
+        num = (~num)+1
         return num
 
     def getSum(self, a: int, b: int) -> int:
@@ -84,23 +84,47 @@ class Solution:
         return sum
 
     def getSum2(self,x, y):
-        #check complementary numbers
-        # Iterate till there is no carry
-        if((x+y)!=0):
+        #self.printBit(x)
+        #self.printBit(y)
+        #check if addition or subtraction
+        if(((x^y)>>31)&(0x01)):
+            print("Subtraction!")
+            a = y if((x>>31)&(0x01)) else x
+            b = x if((x>>31)&(0x01)) else y
+            self.printBit(a)
+            self.printBit(b)
+            b=self.twoComplement(b)
+            self.printBit(b)
+            #Iterate until there is no borrow
             for i in range(0,32):
-                if(y != 0):
-                    # carry now contains common
-                    # set bits of x and y
-                    carry = x & y 
-                    # Sum of bits of x and y where at
-                    # least one of the bits is not set
-                    x = x ^ y
-                    # Carry is shifted by one so that  
-                    # adding it to x gives the required sum
-                    y = carry << 1
-                    print(f"x={x},y={y},carry={carry}")
+                if(b!=0):
+                    borrow = (~a) & b
+                    #print("borrow")
+                    #self.printBit(borrow)
+                    a = b^a
+                    #print("a")
+                    #self.printBit(a)
+                    b = borrow<<1
+                    #print("b")
+                    #self.printBit(b)
+                else:
+                    self.printBit(a)
+                    return a
+            self.printBit(a)
+            return a
+        else:
+            print("Addition!")
+            #addition
+            # Iterate till there is no carry
+            if((x+y)!=0):
+                for i in range(0,32):
+                    if(y != 0):
+                        # carry now contains common
+                        carry = x & y 
+                        x = x ^ y
+                        y = carry << 1
+                return x
             return x
-        return 0
 
 #testcase1
 #a=1
@@ -112,16 +136,22 @@ b=-8
 a=-1
 b=1
 
-a=-14
-b=16
+#a=-16
+#b=14
 
+a=-2
+b=1
 sol=Solution()
-#Sum=sol.getSum(a,b)
 
+#Doing the carry method simpler
 Sum = sol.getSum2(a,b)
-
-#sol.printBit(a)
-#sol.printBit(b)
-#sol.printBit(Sum)
-print(f"a={a},b={b},sum={Sum},actualsum={a+b}")
+if((Sum>>31)&0x01): #negative number
+    print(bin(Sum))
+    print(f"a={a},b={b},result={Sum},actualresult={a+b}")
+    Sum = (~Sum)+1
+    print(bin(Sum))
+    print(f"a={a},b={b},result={Sum},actualresult={a+b}")
+else:
+    print(f"a={a},b={b},result={Sum},actualresult={a+b}")
 #print(f"a={bin(a)},b={bin(b)},sum={bin(Sum)},actualsum={bin(a+b)}")
+
