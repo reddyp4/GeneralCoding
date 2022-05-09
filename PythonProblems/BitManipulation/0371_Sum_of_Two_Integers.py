@@ -19,8 +19,15 @@ Constraints:
 
 from ctypes import sizeof
 
+import ctypes
 
 class Solution:
+    def signAmpl2TwosComplement(self,num:int) -> int:
+        if(num<0):
+            #Return 2's complement
+            return (-num)
+        return num
+
     def printBit(self,num:int):
         s=f"Num={num}="
         for i in range(32,-1,-1):
