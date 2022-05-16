@@ -17,11 +17,12 @@ Constraints:
 -1000 <= a, b <= 1000
 '''
 
-from ctypes import sizeof
-
 import ctypes
 
 class Solution:
+    def int2Uint32(self,num: int) -> int:
+        return ctypes.c_uint32(num)
+
     def signAmpl2TwosComplement(self,num:int) -> int:
         if(num<0):
             #Return 2's complement
@@ -94,7 +95,7 @@ class Solution:
         #self.printBit(x)
         #self.printBit(y)
         #check if addition or subtraction
-        if(((x^y)>>31)&(0x01)):
+        if(~((x^y)>>31)&(0x01)):
             print("Subtraction!")
             a = y if((x>>31)&(0x01)) else x
             b = x if((x>>31)&(0x01)) else y
@@ -102,6 +103,7 @@ class Solution:
             self.printBit(b)
             b=self.twoComplement(b)
             self.printBit(b)
+            print(self.int2Uint32(b))
             #Iterate until there is no borrow
             for i in range(0,32):
                 if(b!=0):
@@ -122,14 +124,21 @@ class Solution:
         else:
             print("Addition!")
             #addition
+            print(f"x={bin(x)}")
+            self.printBit(x)
+            print(x.length())
+            print(f"y={bin(y)}")
             # Iterate till there is no carry
             if((x+y)!=0):
                 for i in range(0,32):
                     if(y != 0):
                         # carry now contains common
-                        carry = x & y 
+                        carry = x & y
+                        print(f"carry={bin(carry)}")
                         x = x ^ y
+                        print(f"x={bin(x)}")
                         y = carry << 1
+                        print(f"y={bin(y)}")
                 return x
             return x
 
@@ -146,8 +155,8 @@ b=1
 #a=-16
 #b=14
 
-a=2
-b=-5
+a=-2
+b=5
 sol=Solution()
 
 #Doing the carry method simpler
