@@ -23,7 +23,32 @@ Constraints:
 
 -231 <= x <= 231 - 1
 '''
+
+
 class Solution:
     def reverse(self, x: int) -> int:
+        c1=0
+        if(x>0):
+            while(x>0):
+                c1=c1*10+(x%10)
+                x=(int)(x/10)
+            if(c1>(pow(2,31)-1)):
+                return 0
+        else:
+            x=-x
+            while(x>0):
+                c1=c1*10+(x%10)
+                x=(int)(x/10)
+            c1=-c1
+            if(c1<-pow(2,31)):
+                return 0
+        return c1
 
-        
+num=-123
+num=120
+num=pow(2,33)
+num=1534236469
+#num=123
+sol=Solution()
+print(f"Original:{num},reversed={sol.reverse(num)}")
+
