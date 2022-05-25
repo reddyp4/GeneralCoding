@@ -2,63 +2,70 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct linkedlist
+typedef struct node_str
 {
     int data;
-    struct linkedlist* next;
-};
+    struct node_str* next;
+} str_node;
 
-struct linkedlist* addLLElement(struct linkedlist* node, int data)
+str_node* addLLElement(str_node* node, int data)
 {
-    struct linkedlist* new= (struct linkedlist*)malloc(sizeof(struct linkedlist));
-    new->data = data;
-    new->next = node;
-    return new;
+    //Add element at head
+    //Declare the address variable in heap
+    str_node* p = (str_node*)malloc(sizeof(str_node));
+    //Assign the pointer correctly
+    p->next = node;
+    p->data = data;
+    return p;
 }
 
 /*Print elements of linked list*/
-void printLL(struct linkedlist* head)
+void printLL(str_node* head)
 {
-    struct linkedlist* node = head;
-    printf("Data:");
-    while(node->next!=NULL)
+    str_node* p;
+    p=head;
+    while(p!=NULL)
     {
-        printf("%d,",node->data);
-        node=node->next;
+        printf("%d, ",p->data);
+        p=p->next;
     }
-    printf("%d\n",node->data);
 }
 
 /*Remove element*/
-int removeLLElement(struct linkedlist* head,struct linkedlist* newHead)
+int removeLLElement(str_node* head)
 {
-    int value = head->data;
-    newHead->next = head->next;
-
-    return value;
+    //Assume element removed at tail - FIFO
+    str_node* tail = head;
+    while(tail->next->next!=NULL)
+    {
+        tail=tail->next;
+    }
+    //reached the last but one element
+    int val = tail->next->data;
+    tail->next=NULL;
+    return val;
 }
 
 /* Linked List functions, add, remove, print*/
 int main(void)
 {
     /*Create empty linked list*/
-    struct linkedlist* tail = (struct linkedlist*)malloc(sizeof(struct linkedlist));
-    tail->data=0;
-    tail->next=NULL;
+    str_node* head = (str_node*)malloc(sizeof(str_node));
+    head->data=0;
+    head->next=NULL;
 
     /*Add elements*/
-    struct linkedlist* first = addLLElement(tail,1);
-    struct linkedlist* second = addLLElement(first,2);
-    struct linkedlist* third = addLLElement(second,3);
+    head = addLLElement(head,1);
+    head = addLLElement(head,2);
+    head = addLLElement(head,3);
 
     /*Print elements*/
-    printLL(third);
+    printLL(head);
     /*Remove elements*/
-
-    struct linkedlist* new = (struct linkedlist*)malloc(sizeof(struct linkedlist));
-    int element = removeLLElement(third,new);
+    // str_node* new = (str_node*)malloc(sizeof(str_node));
+    int element = removeLLElement(head);
     printf("value removed:%d\n",element);
 
     /*Print elements*/
-    printLL(new);
+    printLL(head);
 }
