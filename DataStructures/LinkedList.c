@@ -16,7 +16,7 @@ str_node* createLL(int* array, int n)
     head = (str_node*)malloc(sizeof(str_node));
     head->data = *array;
     head->next = NULL;
-    printf("%d, ", head->data);
+    printf("Creating LL: %d, ", head->data);
 
     /*Start adding nodes*/
     last = head;
@@ -36,6 +36,7 @@ str_node* createLL(int* array, int n)
         last = node;
     }
     last = NULL;
+    printf("\n");
 
     return head;
 }
@@ -58,9 +59,10 @@ void printLL(str_node* head)
     p=head;
     while(p!=NULL)
     {
-        printf("%d, ",p->data);
+        printf("%d ",p->data);
         p=p->next;
     }
+    printf("\n");
 }
 
 /*Print elements recursively of linked list*/
@@ -160,11 +162,96 @@ str_node* searchLLRecur(str_node* head,int key)
         else
             return searchLLRecur(head->next,key);
     }
+    return NULL;
+}
+
+/*Insert at head - LIFO*/
+str_node* insertLLHead(str_node* head, int val)
+{
+    str_node* p = (str_node*)malloc(sizeof(str_node));
+    p->data=val;
+    p->next=head;
+    return p;
+}
+
+/*Insert at position n*/
+str_node* insertLLPOS(str_node* head,int pos, int val)
+{
+    /*Insert after position, starts from 1*/
+    str_node* p=(str_node*)malloc(sizeof(str_node));
+    str_node* q=head;
+    int count=1;
+    /*Move until position*/
+    printf("Moving q: ");
+    while(count<pos)
+    {
+        q=q->next;
+        count++;
+        printf("%d ",q->data);
+    }
+    printf("\n");
+    /*Insert after p*/
+    p->data=val;
+    p->next=q->next;
+    q->next=p;
+    if(count==0)
+        return q;
+    else
+    {
+        return head;
+    }
+}
+
+str_node* findLLLast(str_node* head)
+{
+    str_node* p =head;
+    while(p->next!=NULL)
+        p=p->next;
+    return p;
+}
+
+str_node* insertLLLast(str_node* last, int val)
+{
+    str_node* p = (str_node*)malloc(sizeof(str_node));
+    p->data = val;
+    p->next = NULL;
+    last->next = p;
+    last = p;
+    return last;
+}
+
+/*Inset in sorted linked list*/
+str_node* insertLLSorted(str_node* head, int val)
+{
+    str_node* p = (str_node*)malloc(sizeof(str_node));
+    p->data=val;
+    p->next=NULL;
+    /*Corner case of head>val*/
+    if(head->data>val)
+    {
+        p->next=head;
+        printf("Came here!");
+        return p;
+    }
+    /*Find location of q, where p should be inserted*/
+    str_node *q=head;
+    while(q->next!=NULL)
+    {
+        if(q->next->data>val)
+            break;
+        q=q->next;
+    }
+    p->next=q->next;
+    q->next=p;
+
+    return head;
 }
 
 /* Linked List functions, add, remove, print*/
 int main(void)
 {
+
+#if 0
 #if 0 //For initial code, adding element by element
     /*Create empty linked list*/
     str_node* head = (str_node*)malloc(sizeof(str_node));
@@ -215,6 +302,12 @@ int main(void)
     /*Search for key*/
     str_node* pSearch = searchLL(head,key);
     head = pSearch;
+
+    key = 9;
+    /*Search for key*/
+    pSearch = searchLL(head,key);
+    head = pSearch;
+
     if(pSearch)
         printf("Value found %d\n",pSearch->data);
     else
@@ -222,11 +315,43 @@ int main(void)
     printf("Printing recursively, after moving the found key %d\n ",pSearch->data);
     printLL(head);
     
-    /*
+#if 0
     str_node* pSearchRec = searchLLRecur(head,key);
     if(pSearchRec)
         printf("Value found %d\n",pSearchRec->data);
     else
         printf("Value not found!\n");
-    printLLRecur(head);*/
+    printLLRecur(head);
+#endif
+    /*Insert at head*/
+    head = insertLLHead(head,5);
+    printLL(head);
+
+    /*Insert at position3*/
+    printLL(head);
+    head = insertLLPOS(head,3,6);
+    printLL(head);
+
+    /*Find last and insert*/
+    str_node* last = findLLLast(head);
+    key=20;
+    last = insertLLLast(last,key);
+    /*Print LL*/
+    printLL(head);
+#endif
+
+    /*Sorted Linked List*/
+    int sortedArr[5] = {10,20,30,40,50};
+    str_node* sorted = createLL(sortedArr,5);
+    sorted = insertLLSorted(sorted,25);
+    printf("Adding element %d to sorted LL\n",25);
+    printLL(sorted);
+    sorted = insertLLSorted(sorted,55);
+    printf("Adding element %d to sorted LL\n",55);
+    printLL(sorted);
+    sorted = insertLLSorted(sorted,5);
+    printf("Adding element %d to sorted LL\n",5);
+    printLL(sorted);
+
+    /*Delete*/
 }
