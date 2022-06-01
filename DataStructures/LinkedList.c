@@ -247,6 +247,21 @@ str_node* insertLLSorted(str_node* head, int val)
     return head;
 }
 
+/*Check if linked list if sorted*/
+int checkLLSorted(str_node* head)
+{
+    str_node* p=head;
+    while(p->next!=NULL)
+    {
+        if(p->next->data<p->data)
+        {
+            return 0;
+        }
+        p=p->next;
+    }
+    return 1;
+}
+
 /* Linked List functions, add, remove, print*/
 int main(void)
 {
@@ -353,5 +368,12 @@ int main(void)
     printf("Adding element %d to sorted LL\n",5);
     printLL(sorted);
 
-    /*Delete*/
+    /*Check if list is sorted*/
+    printf("Linklist is sorted?: %d\n",(int)checkLLSorted(sorted));
+    sorted = insertLLPOS(sorted,3,2);
+    printLL(sorted);
+    printf("Linklist is sorted?: %d\n",(int)checkLLSorted(sorted));
+    /*Remove the unsorted element*/
+    /*Add 5*/
+    /*Remove duplicates*/
 }
