@@ -75,7 +75,7 @@ void printLLRecur(str_node* head)
     }
 }
 
-/*Remove element*/
+/*Remove tail element*/
 int removeLLElement(str_node* head)
 {
     //Assume element removed at tail - FIFO
@@ -262,6 +262,68 @@ int checkLLSorted(str_node* head)
     return 1;
 }
 
+/*Delete element at position n*/
+str_node* deleteLLElement(str_node* head, int pos)
+{
+    str_node* p = head;
+    int count=1;
+    while(count+1<pos)
+    {
+        p=p->next;
+        count++;
+    }
+    /*If first element, update head, other update node at p*/
+    if(pos==1)
+    {
+        p=p->next;
+        return p;
+    }
+    else
+    {
+        p->next=p->next->next;
+        return head;
+    }
+}
+
+/* Linked List functions, remove duplicates*/
+str_node* removeDuplicates(str_node* head)
+{
+    str_node* q =head->next;
+    str_node* p = head;
+    while(q!=NULL)
+    {
+        if(p->data==q->data)
+        {
+            /*Found duplicate, remove q*/
+            p->next=q->next;
+            free(q);
+        }
+        /* Just move*/
+        p=p->next;
+        q=q->next;
+    }
+    return head;
+}
+
+/*Reverse linked list with three sliding pointers*/
+str_node* reverseLL(str_node* head)
+{
+    str_node *p,*q,*r;
+    p=head;
+    q=NULL;
+    r=NULL;
+    while(p!=NULL)
+    {
+        /*Sliding pointers*/
+        r=q;
+        q=p;
+        p=p->next;
+        /*Swap q,r: prev r.next->q: new q.next=r*/
+        q->next=r;
+    }
+    return q;
+}
+
 /* Linked List functions, add, remove, print*/
 int main(void)
 {
@@ -373,7 +435,24 @@ int main(void)
     sorted = insertLLPOS(sorted,3,2);
     printLL(sorted);
     printf("Linklist is sorted?: %d\n",(int)checkLLSorted(sorted));
-    /*Remove the unsorted element*/
-    /*Add 5*/
+    /*Remove the unsorted element, 2 at position 3*/
+    sorted = deleteLLElement(sorted,4);
+    printLL(sorted);
+    /*Add 20*/
+    sorted = insertLLSorted(sorted,20);
+    printf("Adding 20: ");
+    printLL(sorted);
     /*Remove duplicates*/
+    printf("Before duplicates: ");
+    printLL(sorted);
+    sorted = removeDuplicates(sorted);
+    printf("After removing duplicates: ");
+    printLL(sorted);
+
+    /*Reverse the linked list*/
+    printf("Before reveral: ");
+    printLL(sorted);
+    sorted = reverseLL(sorted);
+    printf("After reversal: ");
+    printLL(sorted);
 }
