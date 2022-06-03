@@ -8,6 +8,8 @@ typedef struct node_str
     struct node_str* next;
 } str_node;
 
+str_node *first;    
+
 /*Create linked list */
 str_node* createLL(int* array, int n)
 {
@@ -306,6 +308,10 @@ str_node* removeDuplicates(str_node* head)
 }
 
 /*Reverse linked list with three sliding pointers*/
+/* Idea is to have three sliding pointers, r, q, p */
+/* r=q, q=p, p=p->next*/
+/* q->head will be r after assignment of three pointers */
+/* Do while p!=NULL*/
 str_node* reverseLL(str_node* head)
 {
     str_node *p,*q,*r;
@@ -322,6 +328,26 @@ str_node* reverseLL(str_node* head)
         q->next=r;
     }
     return q;
+}
+
+/* Reverse LL recursively */
+/* Idea is that p(tail),q, are returned by recursion*/
+/* Sliding pointers: head(moves by next), tail returned by recursion */
+void reverseLLRecur(str_node* head, str_node* tail)
+{
+    /*check if head is null*/
+    if(head->next!=NULL)
+    {
+        reverseLLRecur(head->next,tail->next);
+        head->next=tail;
+        //tail = head;
+    }
+    else
+    {
+        first = (str_node*)malloc(sizeof(str_node));
+        first->next=tail;
+        first=head;
+    }
 }
 
 /* Linked List functions, add, remove, print*/
@@ -449,10 +475,19 @@ int main(void)
     printf("After removing duplicates: ");
     printLL(sorted);
 
+#if 0
     /*Reverse the linked list*/
     printf("Before reveral: ");
     printLL(sorted);
     sorted = reverseLL(sorted);
     printf("After reversal: ");
     printLL(sorted);
+#endif
+
+    /*Reverse the linked list recursively*/
+    printf("Before reversal: ");
+    printLL(sorted);
+    reverseLLRecur(sorted->next,sorted);
+    printf("After reversal: ");
+    printLL(first);
 }
