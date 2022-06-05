@@ -340,13 +340,15 @@ void reverseLLRecur(str_node* head, str_node* tail)
     {
         reverseLLRecur(head->next,tail->next);
         head->next=tail;
+        if(tail->next==head)
+            tail->next=NULL;
         //tail = head;
     }
     else
     {
         first = (str_node*)malloc(sizeof(str_node));
-        first->next=tail;
         first=head;
+        first->next=tail;
     }
 }
 
@@ -490,4 +492,6 @@ int main(void)
     reverseLLRecur(sorted->next,sorted);
     printf("After reversal: ");
     printLL(first);
+
+    free(first);
 }
