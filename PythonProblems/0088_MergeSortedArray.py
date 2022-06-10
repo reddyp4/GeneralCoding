@@ -41,9 +41,47 @@ nums2.length == n
 Follow up: Can you come up with an algorithm that runs in O(m + n) time?
 '''
 
+#Approach1: Add one array into second and sort
+#Approach2: Merge starting with end, and take the larger of the elements
+#First approach-O(n-logn)
+#Second approach-O(n)
+
+from typing import List
+
 class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
         """
         Do not return anything, modify nums1 in-place instead.
         """
+        left=m-1
+        right=n-1
+        k=len(nums1)-1
+        #print(f"left:{left},right:{right},k:{k}")
+        while((left>=0) & (right>=0)):
+            #compare
+            if(nums1[left]>nums2[right]):
+                nums1[k]=nums1[left]
+                left=left-1
+            else:
+                nums1[k]=nums2[right]
+                right=right-1
+            #print(f"nums1:{nums1},left:{left},right:{right},k:{k}")
+            k=k-1
+        #Gather phase
+        while(left>=0):
+            nums1[k]=nums1[left]
+            left=left-1
+            k=k-1
+        while(right>=0):
+            nums1[k]=nums2[right]
+            right=right-1
+            k=k-1
+
         
+
+nums1 = [1,2,3,0,0,0]
+nums2 = [2,5,6]
+print(f"Before merging: nums1:{nums1}, nums2:{nums2}")
+sol=Solution()
+sol.merge(nums1,3,nums2,3)
+print(f"After merging: nums1:{nums1}, nums2:{nums2}")
