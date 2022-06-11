@@ -27,12 +27,36 @@ nums[i] is either 0, 1, or 2.
 
 Follow up: Could you come up with a one-pass algorithm using only constant extra space?
 '''
+from typing import List
+
+#0,1,2
 class Solution:
-    def sortColors(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
+    def sortColors(nums: List[int]):
+        #int l = 0, r = nums.length - 1, i = 0;
+        #l=-1, r=-1. i=0
+        l=-1
+        r=-1
+        i=0
+        while (i <= len(nums)):
+            if (nums[i] == 0):
+                self.swap(nums, l, i)
+                l=l+1
+                i=i+1
+            elif (nums[i] == 2):
+                self.swap(nums, i, r)
+                #swap
+                r=r-1
+            else:
+                i=i+1
+
+    def swap(A: List[int], i, j):
+        tmp = A[i]
+        A[i] = A[j]
+        A[j] = tmp
 
 nums = [2,0,2,1,1,0]
 print(f"Before sorting:{nums}")
+sol=Solution()
+print(f"After sorting:{sol.sortColors(nums)}")
 
+#
