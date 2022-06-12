@@ -1,7 +1,6 @@
 #MergeSort
 #Redo mergeSort again
 
-from operator import le
 from typing import List
 
 class Solution:

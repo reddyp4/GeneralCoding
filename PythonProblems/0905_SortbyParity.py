@@ -23,6 +23,38 @@ Constraints:
 
 '''
 
+#Method1: Follow suit of quicksort, left/right pointers, check parity
+#Important: Edgecases, all even/all odd numbers, empty arrays
+
+from typing import List
+
 class Solution:
     def sortArrayByParity(self, nums: List[int]) -> List[int]:
+        size1=len(nums)
+        left=0
+        right=size1-1
+        if(left==right):    #single element
+            return nums
+        while(left<=right):
+            while(((nums[left]%2)==0) & (left<size1-2)):   #move until even
+                #print(f"{left},")
+                left=left+1
+            if(left==size1):   #reached end right away
+                return nums
+            while(((nums[right]%2==1)) & (right>=0)):  #move until odd
+                right=right-1
+            if(right==-1):      #reached end
+                return nums
+            if(((nums[left]%2)==1) & ((nums[right]%2)==0) & (left<right)):   #swap
+                c=nums[right]
+                nums[right]=nums[left]
+                nums[left]=c
+            left=left+1
+            right=right-1
+            #print(f"left:{left},right:{right}")
+        return nums
         
+
+nums = [3,1,2,4]
+sol=Solution()
+print(f"After sort:{sol.sortArrayByParity(nums)}")
