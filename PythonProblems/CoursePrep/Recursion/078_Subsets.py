@@ -32,29 +32,44 @@ All the numbers of nums are unique.
 #Every position, include or exclude
 #Remember order doesnt matter
 
+#Key things to remember
+#Exclude, no action
+#include, append, call, and pop
+#pop removes last element in partial solution
+#Why do we pop for partial list?
+#Going up a tree, while finishing a leg and going back, we need to pop the last element
+
 from typing import List
 
 class Solution:
-    def subProblem(self, inputS: str, final: List[int], index: int):
+    def subProblem(self, inputS: List[int], final: List[int], partialSet: List[int], index: int):
         if(index==len(inputS)):
-            print(partialS)
-            return
+            print(f"inputS={inputS},index={index}")
+            print(f"Final partialSet=:{partialSet}")
+            final.append(list(partialSet))
+            print(f"Final Set=:{final}")
+            partialSet=[]
+            return 
         #increment partial solution
         #decrease the size of subproblem
         #sub-problem
         #exclude
-        self.subProblem(inputS,partialS,index+1)
+        print(f"Exclude PartialSet:{partialSet},index:{index}")
+        self.subProblem(inputS,final, partialSet,index+1)
         #include
-        partialS.join(str(inputS[index]))
-        self.subProblem(inputS,partialS,index+1)
+        partialSet.append(inputS[index])
+        print(f"Include PartialSet:{partialSet},index:{index}")
+        self.subProblem(inputS,final,partialSet,index+1)
+        partialSet.pop()
         return
 
     def subsets(self, nums: List[int]) -> List[List[int]]:
         final=[]
-        self.subProblem(nums, final, 0)
-        return
+        partialSet = []
+        self.subProblem(nums, final, partialSet, 0)
+        return final
 
 nums=[1,2,3]
 sol=Solution()
-sol.subsets(nums)
-
+final = sol.subsets(nums)
+print(f"Printing final:{final}")
