@@ -39,6 +39,10 @@ All the numbers of nums are unique.
 #Why do we pop for partial list?
 #Going up a tree, while finishing a leg and going back, we need to pop the last element
 
+#Time Complexity:
+
+#Space Complexity:
+
 from typing import List
 
 class Solution:
