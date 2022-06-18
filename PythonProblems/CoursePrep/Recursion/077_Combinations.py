@@ -53,6 +53,7 @@ Constraints:
 
 from typing import List
 
+''''
 class Solution:
     def subProblem(inputNums: List[int], partial: List[int], k: int, index: int):
         if(len(partial)==k):    #back-tracking condition
@@ -71,8 +72,46 @@ class Solution:
         self.subProblem(inputNums,final,k,0)
         return
         
+'''
+
+debug = 0
+
+class Solution:
+    def subProblem(self, input:List[int], k:int, final: List[int],partial: List[int]):
+        #BaseCase:reached k
+        if(len(partial)==k):
+            final.append(list(partial))
+            if(debug==1):
+                print(f"Base:partial={partial},final={final}")
+            return
+        #Else for each index push into partial
+        for index in range(0,len(input)):
+            #pick index and push
+            if(debug==1):
+                print(f"Start:index={index}:partial={partial},input={input},final={final}")
+            #a=input.pop(index)
+            a=input[index]
+            partial.append(a)
+            if(debug==1):
+                print(f"Append:index={index}:partial={partial},input={input},final={final}")
+            self.subProblem(input[index+1:],k,final,partial)
+            a=partial.pop()
+            #input.insert(index,a)
+            if(debug==1):
+                print(f"End:index={index}:partial={partial},input={input},final={final}")
+
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        final=[]
+        partial=[]
+        input=list(range(1,n+1))
+        #print(f"input={input[2:]}")
+        self.subProblem(input,k,final,partial)
+        return final
+        
+
 n=4
 k=2
 sol=Solution()
-sol.combine(n,k)
+final=sol.combine(n,k)
+print(f"final:{final}")
 

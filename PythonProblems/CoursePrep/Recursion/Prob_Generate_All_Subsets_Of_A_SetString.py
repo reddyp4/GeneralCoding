@@ -20,21 +20,40 @@ Constraints:
 0 <= length of s <= 19
 s only contains distinct lowercase English letters.
 '''
+
 from typing import List
 
 debug=1
 
 def subProblem(s:str, partial:str, final: List[str], index: int):
     #Base Problem, reached end of string
-    if(len(partial)==len(s)):
+    if(index==len(s)):
         #reached end of string
-        final.append(partial)
+        final.append(str(partial))
+        if(debug==1):
+            print(f"Base: s={s},partial={partial},final={final},index={index}")
+        return
     #Exclude, dont push anything into partial, just increment index 
     # and call subproblem
+    if(debug==1):
+        print(f"Exclude Start: s={s},partial={partial},final={final},index={index}")
+    subProblem(s,partial,final,index+1)
+    #partial=partial[:-1] << no need to do , since nothing added
+    if(debug==1):
+        print(f"Exclude End: s={s},partial={partial},final={final},index={index}")
+
     #Include, push the string character into partial 
     # increment index and call subProblem
+    partial=partial+str(s[index])
+    #partial=partial.join(s[index])
+    if(debug==1):
+        print(f"Include Update: s={s},s[index]={s[index]},partial={partial},final={final},index={index}")
+    subProblem(s,partial,final,index+1)
+    #partial=partial[:-1]
+    if(debug==1):
+        print(f"Include End: s={s},partial={partial},final={final},index={index}")
 
-def generate_all_subsets(s):
+def generate_all_subsets(s) -> List[str]:
     """
     Args:
      s(str)
@@ -42,4 +61,11 @@ def generate_all_subsets(s):
      list_str
     """
     # Write your code here.
-    return []
+    partial=""
+    final=[]
+    subProblem(s,partial,final,0)
+    return final
+
+s="xy"
+final=generate_all_subsets(s)
+print(f"Final:{final}")
