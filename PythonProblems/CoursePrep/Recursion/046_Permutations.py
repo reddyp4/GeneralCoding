@@ -26,9 +26,8 @@ All the integers of nums are unique.
 
 # Brute-force Method1: Recursive, each worker picks element at i, pops it in reduceList 
 # and adds to partial list
-# Call recursive subproblem for each i from i+1 to end
-# Base problem1: length(nums)==1, since we are popping 
-# Can we back-track once len(nums)==1
+# Call recursive subproblem for each i from 0 to end
+# Base problem1: length(reducedList)==1, push into partial list and append to final solution
 
 from typing import List
 
