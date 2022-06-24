@@ -30,47 +30,46 @@ class Node:
 #Print iteratively
 def levelTraversal(treenode:Node) -> List[Node]:
     print(f"Printing by level order traversal:")
-    #Create a queue
+    #Create a queue, this is cleared every level
     que = []
+    #printque, is the final queue to be returned
     printque=[]
-    #Append to queue
+    #now for every level, push into queue
     que.append(treenode)
     printque.append(treenode.val)
-    print(f"printque:{printque}")
-    index = 0
-    size1 = 1
+    #run loop until end of queue
+    size1 = len(que)
     while(size1>0):
-        count=0
-        temp=[]
-        tempprint=[]
-        print(f"Start:index={index},size1={size1},printque[{index}]:{printque[index]}")
-        #Print the full queue
-        for count in range(0,size1):
-            print(f"count={count},size1={size1}")
+        #initialize queue2
+        que2 = []
+        printque2 = []
+        print(f"Start:size1:{size1},{que}")
+        #Now run count on queue1 size
+        for index in range(0,size1):
+            # pop each element
             tempnode = que.pop()
-            print(f"tempnode:{tempnode},tempnode.left:{tempnode.left},tempnode.right:{tempnode.right}")
-            if(tempnode.left is not None):
-                print(f"tempnode.left:{tempnode.left.val}")
-                temp.append(tempnode.left)
-                val = tempnode.left.val if tempnode.left !=None else 0
-                tempprint.append(val)
-            if(tempnode.right is not None):
-                print(f"tempnode.right:{tempnode.right.val}")
-                temp.append(tempnode.right)
-                val = tempnode.right.val if tempnode.right !=None else 0
-                tempprint.append(val)
-            print(f"temp:{temp}")
-            print(f"tempprint:{tempprint}")
-        que.append(temp)
-        printque.append(list(tempprint))
-        index = index+1
-        print(f"End:index={index},size1={size1},printque[{index}]:{printque[index]}")
+            print(f"tempnode:{hex(id(tempnode))}")
+            #check if tempnode is None, and left is None
+            if((tempnode is not None) & (tempnode.left is not None)):
+                print(f"tempnode.left.val={tempnode.left.val}")
+                que2.append(tempnode.left)
+                printque2.append(tempnode.left.val)
+            #if not push to queue2
+            #do same with right
+            if((tempnode is not None) & (tempnode.right is not None)):
+                print(f"tempnode.right.val={tempnode.right.val}")
+                que2.append(tempnode.right)
+                printque2.append(tempnode.right.val)
+        #append que2 to que
+        print(f"que2:{que2}")
+        #que.append(que2)
+        que.extend(que2)
         print(f"que:{que}")
-        print(f"len(que[index]):{len(que[0])}")
-        size1 = 1 if index==0 else len(que[0])
-        print(f"End:Que:{que}")
+        printque.append(list(printque2))
+        print(f"End:printque:{printque}")
+        #update size1
+        size1 = len(que)
     return printque
-
 
 #Create root
 root = Node(5)
@@ -85,7 +84,16 @@ root.right.right = Node(4)
 root.left.left.left = Node(7)
 root.left.left.right = Node(2)
 root.right.right.right = Node(1)
+#Print address & values
+print(f"root:{hex(id(root))},val:{root.val},left:{hex(id(root.left))},right:{hex(id(root.right))}")
+print(f"level1:{hex(id(root.left))},val:{root.left.val},left:{hex(id(root.left.left))},right:{hex(id(root.left.right))}")
+print(f"level2:{hex(id(root.right))},val:{root.right.val},left:{hex(id(root.right.left))},right:{hex(id(root.right.right))}")
+print(f"level3:{hex(id(root.left.left))},val:{root.left.left.val},left:{hex(id(root.left.left.left))},right:{hex(id(root.left.left.right))}")
+#print(f"level3:{root.left.right},val:{root.left.right.val},left:{root.left.right.left},right:{root.left.right.right}")
+print(f"level3:{hex(id(root.right.left))},val:{root.right.left.val},left:{hex(id(root.right.left.left))},right:{hex(id(root.right.left.right))}")
+print(f"level3:{hex(id(root.right.right))},val:{root.right.right.val},left:{hex(id(root.right.right.left))},right:{hex(id(root.right.right.right))}")
 
 #Print the tree
 que = levelTraversal(root)
 print(f"Printing tree",que)
+
