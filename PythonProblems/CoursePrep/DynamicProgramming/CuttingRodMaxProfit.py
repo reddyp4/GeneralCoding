@@ -49,6 +49,27 @@ Expected Auxiliary Space: O(N)
 Constraints:
 1 ≤ N ≤ 1000
 1 ≤ Ai ≤ 105
+
+Input:
+N = 8
+Price[] = {1, 5, 8, 9, 10, 17, 17, 20}
+Output:
+22
+Explanation:
+The maximum obtainable value is 22 by
+cutting in two pieces of lengths 2 and 
+6, i.e., 5+17=22.
+Example 2:
+
+Input:
+N=8
+Price[] = {3, 5, 8, 9, 10, 17, 17, 20}
+Output: 24
+Explanation: 
+The maximum obtainable value is 
+24 by cutting the rod into 8 pieces 
+of length 1, i.e, 8*3=24. 
+
 """
 
 #User function Template for python3
@@ -60,24 +81,41 @@ class Solution:
         #Base case condition
         finalArr[0] = 0
         len_price = len(price)
+        print(f"finalArr={finalArr}")
         #Loops
-        for rod_size in range(1,n+1):    #run for all values, python limits at n
+        for rod_size in range(0,n):    #run for all values, python limits at n
             #initializing to zero, or price but if n>price_list
+            print(f"rod_size={rod_size}")
             finalArr[rod_size]=0
-            for cut_size in range(0,rod_size+1):    #run for all price lists
+            for cut_size in range(1,rod_size):    #run for all price lists
                 #other way for j in range(0,i):
                 #no need to check if j>i
                 #basic dp logic
+                print(f"{finalArr[rod_size],price[cut_size]+finalArr[rod_size-cut_size]}")
                 finalArr[rod_size] = max(finalArr[rod_size],price[cut_size]+finalArr[rod_size-cut_size])
+                print(f"finalArr[rod_size]={finalArr[rod_size]}")
             #Timecomplexity: n*n
             #Spacecomplexity: n
-        return finalArr[n]
+        print(finalArr)
+        return finalArr[n-1]
 
+
+#N = 8
+#Price = [1, 5, 8, 9, 10, 17, 17, 20]
+
+N = 4
+Price = [0,2,5,7,8]
+# cut_size = [0,1,2,3,4]
+
+sol = Solution()
+final = sol.cutRod(Price,N)
+print(f"Final={final}")
 
 #{ 
 #  Driver Code Starts
 #Initial Template for Python 3
 
+"""
 def main():
 
     T = int(input())
@@ -94,4 +132,5 @@ def main():
 if __name__ == "__main__":
     main()
 # } Driver Code Ends
+"""
 
