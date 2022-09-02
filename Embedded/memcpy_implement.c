@@ -75,8 +75,8 @@ int main()
     uint16_t idest[size_isrc],i;
     //Run memcpy
     clock_t begin = clock();
-    myMemCpy(idest, isrc, size_isrc);
-    //myMemCpy32(idest, isrc, size_isrc);
+    //myMemCpy(idest, isrc, size_isrc);
+    myMemCpy32(idest, isrc, size_isrc);
     clock_t end = clock();
     double time_spent = (double)(end-begin)/CLOCKS_PER_SEC*1e6;
     // Time spent
