@@ -16,25 +16,24 @@ Create a function Producer that will generate 100 random integer numbers, and sh
 */
 int NUM;
 
-void producer(void)
-{
-    /* Create a random number */
-    int num = rand();
-    /* Send num to customer */
-    mutex_lock();
-    NUM = num;
-}
+semphore s
+conditional variable cv
+mutex m     // on num
+int num[100]={0};
 
+
+void producer(void)
+    m.acquire()
+    if(num.isFull)  wait(cv,m)
+    push(num,rand())
+    if(sizeof(num)>1)   signal(cv)
+    m.release()
+
+/* For multiple threads calling consumer, need a semaphore instead of a mutex? */
 void consumer(int number)
-{
-    /* store in single value */
-    if(mutex_lock()==true)
-    {
-        /* Push to linked list, includes malloc, adding node */
-        addLL(NUM);
-        /* Reset NUM */
-        NUM=0;
-    }
-    mutex_unlock();
-}
+    m.acquire()
+    if(num.isEmpty) wait(cv,m)
+    addtoLL(pop(num))
+    if(sizeof(num)<=MAX)    signal(cv)
+    m.release()
 
