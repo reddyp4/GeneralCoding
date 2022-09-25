@@ -2,6 +2,8 @@
     "files.associations": {
         "stdint.h": "c",
         "stdbool.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "stack": "cpp",
+        "iostream": "cpp"
     }
 }
