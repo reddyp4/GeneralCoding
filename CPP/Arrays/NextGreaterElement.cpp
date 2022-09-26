@@ -41,8 +41,8 @@ void printArray(vector<int> nums)
 
 int printStack(stack<int> stack1)
 {
-    cout << "Stack: ";
-    for(int i=0;i<stack1.size();i++)
+    cout << "Stack: Size: " << stack1.size() << ":";
+    for(int i=0;i<=stack1.size();i++)
     {
         cout<< stack1.top() << " ";
         stack1.pop();
@@ -68,8 +68,8 @@ vector<int> nextGreaterElement(vector<int> nums)
             printStack(myStk);
             continue;
         }
+        cout << "Stack top:" << myStk.top()<<":Element"<<nums[i]<<endl;
         while(!myStk.empty() && printStack(myStk) && myStk.top()<nums[i])
-        //while(!myStk.empty() && myStk.top()<nums[i])
         {
             //cout << "Result";
             //printStack(myStk);
@@ -98,9 +98,17 @@ int main(void)
     arr.push_back(3);
 
     printArray(arr);
+
+#if 0
+    stack<int> myStk;
+    myStk.push(11);
+    myStk.push(9);
+    printStack(myStk);
+#endif
+
     vector<int> result=nextGreaterElement(arr);
     cout << "Result after NGE:" << endl;
-    //printArray(result);
+    printArray(result);
 
     return 0;
 }
