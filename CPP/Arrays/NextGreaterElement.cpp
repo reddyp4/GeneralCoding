@@ -41,61 +41,82 @@ void printArray(vector<int> nums)
 
 int printStack(stack<int> stack1)
 {
-    cout << "Stack: Size: " << stack1.size() << ":";
+    //cout << "Stack: Size: " << stack1.size() << ":";
     for(int i=0;i<=stack1.size();i++)
     {
-        cout<< stack1.top() << " ";
+        //cout<< stack1.top() << " ";
         stack1.pop();
     }
-    cout << endl;
+    //cout << endl;
     return 1;
 }
 
 vector<int> nextGreaterElement(vector<int> nums)
 {
-    vector<int> result;
+    int size_nums = nums.size();
+    vector<int> result(size_nums,-1);
     stack<int> myStk;
+    stack<int> myIndex;
     myStk.push(nums[0]);
+    myIndex.push(0);
     printStack(myStk);
     for(int i=1;i<nums.size();i++)
     {
-        cout<< "New Iteration" << endl;
+        //cout<< "New Iteration" << endl;
         printStack(myStk);
         if(myStk.empty())
         {
             myStk.push(nums[i]);
-            cout<< "Stack is empty! New stack now-";
-            printStack(myStk);
+            myIndex.push(i);
+            //cout<< "Stack is empty! New stack now-";
+            //printStack(myStk);
             continue;
         }
-        cout << "Stack top:" << myStk.top()<<":Element"<<nums[i]<<endl;
+        //cout << "Stack top:" << myStk.top()<<":Element"<<nums[i]<<endl;
         while(!myStk.empty() && printStack(myStk) && myStk.top()<nums[i])
         {
-            //cout << "Result";
-            //printStack(myStk);
-            //result.push_back(myStk.top());
-            cout << myStk.top() << " --> " << nums[i] << endl;
+            //cout << "Index:" << i << "Element:" << myStk.top() << " --> " << nums[i] << endl;
+            result[myIndex.top()] = nums[i];
             myStk.pop();
+            myIndex.pop();
         }
         myStk.push(nums[i]);
+        myIndex.push(i);
     }
+#if 0
     while(!myStk.empty())
     {
         result.push_back(-1);
         myStk.pop();
     }
-
+#endif
     return result;
 }
 
 int main(void)
 {
     vector<int> arr;
+#if 1
+    arr.push_back(1);
+    arr.push_back(3);
+    arr.push_back(2);
+    arr.push_back(4);
+#endif
+
+#if 0
     arr.push_back(11);
     arr.push_back(9);
     arr.push_back(13);
     arr.push_back(21);
     arr.push_back(3);
+#endif
+
+#if 0
+    arr.push_back(7);
+    arr.push_back(8);
+    arr.push_back(1);
+    arr.push_back(4);
+#endif
 
     printArray(arr);
 
