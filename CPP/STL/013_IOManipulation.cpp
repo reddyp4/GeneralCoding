@@ -18,5 +18,16 @@ int main()
     //Printing in alignment, width
     //only setw, setfill need iomanip library
     cout<<"x:"<<std::setw(5)<<std::setfill('0')<<std::right<<x<<endl;
+
+    //setprecision
+    //scientific
+      std::cout << "fixed:\n" << std::fixed;
+    std::cout << a << '\n' << b << '\n' << c << '\n';
+
+    std::cout << '\n';
+
+    std::cout << "scientific:\n" << std::scientific;
+    std::cout << a << '\n' << b << '\n' << c << '\n';
+
     return 0;
 }
