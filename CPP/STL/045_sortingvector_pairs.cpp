@@ -18,7 +18,7 @@ void displaySorted(int roll_no[], int marks[], int n)
 {
     // Create a vector of pair to
     // store students data
-    vector<pair<int, int> > vp;
+    vector<pair<int, int>> vp;
 
     // Traverse the arrays and store elements in vector
     for (int i = 0; i < n; i++) {

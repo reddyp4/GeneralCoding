@@ -36,4 +36,23 @@ Can you do it without using any built-in function (i.e., like __builtin_popcount
 '''
 class Solution:
     def countBits(self, n: int) -> List[int]:
+                #Method-1: One number at a time
+        #Time: every element x hamming = n x log(n)
+        #Space: two elements, O(1)
+        '''
+        ans1=list()
+        for index in range(0,n+1):
+            digits=0
+            n=index
+            while(n is not 0):
+                digits+=1
+                n=n&(n-1)
+            ans1.append(digits)
+        return ans1 '''
+
+        #Method-2: Most Significant Bit
+
+        #Method-3: Last Set Bit
+
+        #Method-4: Dynamic Programming
         
