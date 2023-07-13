@@ -23,7 +23,7 @@ Explantion: All integers have 1 bit in the binary representation, you should jus
 #Step1: Write BitCount function and assign the #bits
 #Step2: Write Sorting algorithm - do all sorting algorithms seperately in Python
 
-
+'''
 class Solution:
     def getBits(arr):
         lenth1 = len(arr)
@@ -45,3 +45,23 @@ array = [0,8]
 BITS = Solution.getBits(array)
 
 print(BITS)
+'''
+
+class Solution:
+    def sortByBits(self, arr: List[int]) -> List[int]:
+        #Get bits in each number and store to List of Lists
+        #Sort List by first element and then second element
+        bits = list()
+        for index,ele in enumerate(arr):
+            nobits=0
+            num=ele
+            while(num is not 0):
+                num=num&(num-1)
+                nobits=nobits+1
+            bits.append(nobits)
+        #now make list of lists
+        final=zip(bits,arr)
+        #sort final
+        finalS=sorted(final,key=lambda x:(x[0],x[1]))
+        result = [item[1] for item in finalS]
+        return result
