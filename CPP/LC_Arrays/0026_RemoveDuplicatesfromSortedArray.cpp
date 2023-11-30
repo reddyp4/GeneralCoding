@@ -57,16 +57,18 @@ class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
         /* Use XOR, n^n = 0 */
-        int left=0,right=0,val;
-        while( right<nums.size() & left<nums.size() ) 
+        int left=0,right=1,val;
+        if(nums.size()<2)   return 0;
+        while( right<nums.size() & left<nums.size()-1 ) 
         {
             val=nums[left];
-            right=left+1;
-            while(val==nums[right]) right++;
-            if(left==(nums.size()-1))   break;
+            //right=left+1;
+            while( (val==nums[right]) & right<nums.size()-1) right++;
             left++;
             nums[left]=nums[right];
         }
-        return({nums.begin(),nums.begin()+left});
+        // remove rest of elements from left+1 to end
+        nums.erase(nums.begin()+left,nums.end());
+        return(left);
     }
 };
