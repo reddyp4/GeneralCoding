@@ -58,12 +58,12 @@ public:
     int removeDuplicates(vector<int>& nums) {
         /* Use XOR, n^n = 0 */
         int left=0,right=1,val;
-        if(nums.size()<2)   return 0;
-        while( right<nums.size() & left<nums.size()-1 ) 
+        if(nums.size()<2)   return 1;
+        while( right<nums.size() & left<nums.size() ) 
         {
             val=nums[left];
             //right=left+1;
-            while( (val==nums[right]) & right<nums.size()-1) right++;
+            while( (val==nums[right]) & right<nums.size()) right++;
             left++;
             nums[left]=nums[right];
         }
