@@ -62,25 +62,28 @@ public:
         /* Choose two pointer approach */
         /* Left = element to be replaced, right stop at next unequal element */
         /* End until right reaches the end */
-        int left=0,right = 1, lenNums = nums.size()-1;
-        while ((left<=lenNums) && (right <= lenNums))
+        int left=0, lenNums = nums.size()-1, right = lenNums;
+        if(nums.size()==0)  return 0;
+        if(lenNums==0 && nums[0]==val)  return 0;
+        if(lenNums==0 && nums[0]!=val)  return 1;
+        while ( left < right )
         {
             //left finds the equal
-            while((left<=lenNums) && (nums[left]!=val))  left++;
-            right=left+1;
+            while((left<right) && (nums[left]!=val))  left++;
             //right finds the unequal number
-            while( (right<=lenNums) && (nums[right]==val) ) right++;
+            while( (right>left) && (nums[right]==val) ) right--;
             //replace left with right, if value are as intended
-            if( (nums[left]==val) && (nums[right]!=val) ) 
+            if( left<right && (nums[left]==val) && (nums[right]!=val) ) 
             {
                 //Copy data from right to left, unequal to equal
                 nums[left]=nums[right];
-                //modify the unequal to be equal for future replacement
                 nums[right]=val;
             }
             //move left
-            left++;
+            left++,right--;
         }
-        return left;
+        //Reached beyond
+        if(left>=lenNums)    return lenNums;
+        return left+1;
     }
 };
