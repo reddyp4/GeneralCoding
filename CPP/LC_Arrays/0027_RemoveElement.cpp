@@ -80,10 +80,14 @@ public:
                 nums[right]=val;
             }
             //move left
-            left++,right--;
+            if(left!=right) left++,right--;
         }
+        //Special Cases, all unequal numbers
+        if(left==right && left==lenNums && nums[left]!=val)    return lenNums+1;
+        //Special case: all equal numbers
+        if(left==right && left==0 && nums[left]==val)  return 0;
         //Reached beyond
-        if(left>=lenNums)    return lenNums;
-        return left+1;
+        if(left==right && nums[left]!=val)    return left+1;
+        return left;
     }
 };
