@@ -51,8 +51,22 @@ Constraints:
 1 <= nums.length <= 3 * 104
 -100 <= nums[i] <= 100
 nums is sorted in non-decreasing order.
+
+Test cases:
+[1,1,2,2,2,3,3,4,5,5]
+[0,0,1,1,1,2,2,3,3,4]
+[0]
+[1]
+[3,4,5]
+[1,1,2,2,2,3,3,4,5,5,6,7,7,7,8,8,8,8,9,10,11,11,12,12,12,13,14,15,15,15,15,15,20,25,31,32]
+[0,0,1,1,1,2,2,3,3,4]
+
 */
 
+/*
+Beats run-time for 46%
+Beats 89% of memory
+*/
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
@@ -63,9 +77,13 @@ public:
         {
             val=nums[left];
             //right=left+1;
-            while( (val==nums[right]) & right<nums.size()) right++;
+            while( right<nums.size() && (val==nums[right])) right++;
             left++;
-            nums[left]=nums[right];
+            if(left==nums.size() || right==nums.size())
+            {
+                break;
+            }
+            else  nums[left]=nums[right];
         }
         // remove rest of elements from left+1 to end
         nums.erase(nums.begin()+left,nums.end());
