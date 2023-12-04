@@ -63,6 +63,9 @@ public:
         /* keep doing xor, result=right if(left==right) result^=right continue if result==0 until [right]>[left] */
         /* value to compare to changes depending on left or right */
         int left=0,right=0,lenNums=nums.size()-1;   //left is where values are copied
+        /* Corner cases, no elements, 1 and 2 elements */
+        if(lenNums==0)  return 1;
+        if(lenNums==1)  return 2;
         int val = nums[left];   //value to compare to
         int count=1;
         while ( left<=lenNums && right<=lenNums )
@@ -74,22 +77,23 @@ public:
             /* Single element, nothing to do */
             if(count==1)
             {
-                nums[left]=nums[right];
-                left++,right++;
+                nums[left++]=val;
                 continue;
             }
             /* Two elements, nothing to do, move by two elements */
-            if(count==2)
+            if(count>=2)
             {
-                nums[left++]=nums[right++];
-                nums[left++]=nums[right++];
+                nums[left++]=val;
+                nums[left++]=val;
                 continue;
             }
-            /* more than two elements, move left by 2, new value to compare is right value */
-            nums[left++]=nums[right++];
-            nums[left++]=nums[right++];
-            /* Move left appropriately */
         }
         return left;
     }
 };
+
+/*
+Time Analysis:
+Single O(1), LC beats 100% of solutions
+Space O(1), LC beats 27% of solutions
+*/
