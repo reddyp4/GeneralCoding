@@ -54,3 +54,21 @@ Constraints:
 -104 <= nums[i] <= 104
 nums is sorted in non-decreasing order.
 '''
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        # Use XOR, n^n = 0
+        left,right,val = 0,1,0
+        if(len(nums)<2):
+            return 1
+        while( right<len(nums) and left<len(nums) ):
+            val=nums[left]
+            while( right<len(nums) and (val==nums[right])):
+                right=right+1
+            left=left+1
+            if(left==len(nums) or right==len(nums) ):
+                break
+            else:
+                nums[left]=nums[right]
+        # remove rest of elements from left+1 to end
+        nums.pop(left:len(nums))
+        return(left)
