@@ -70,5 +70,10 @@ class Solution:
             else:
                 nums[left]=nums[right]
         # remove rest of elements from left+1 to end
-        nums.pop(left:len(nums))
+        #nums.pop(left:len(nums))
         return(left)
+
+'''
+Time: Beats 26%, O(n)
+Memory: Beats 12%, O(1)
+'''
