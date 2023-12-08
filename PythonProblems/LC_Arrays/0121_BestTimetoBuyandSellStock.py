@@ -29,7 +29,8 @@ Constraints:
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         #Method1: Bruteforce, find every profit, and get the maximum. O(n2)
-        #Method2: Two pointer approach? left get the increasing order
+        #Method2: Two pointer approach? left get the increasing order, works except case 200
+        '''
         # right, checks the max, and left moves to next increasing
         left, right, length, maxval =0, 0, len(prices)-1, 0
         while (left<=length-1):
@@ -40,6 +41,20 @@ class Solution:
                 maxval = tempmax
             left = left + 1
         return(maxval)
+        '''
+        #Single Pass Solution, to go global min on left and search for global max on right
+        newMin, newMax, maxval = 100000,0,0
+        index, length =0, len(prices)-1
+        while(index<=length):
+            #globalMin found, reset globalMax
+            if(prices[index]<newMin):
+                newMin = prices[index]
+            #Not globalMin, check value and update maxval if needed
+            if(prices[index]-newMin>maxval):
+                maxval = prices[index] - newMin
+            #in between globalMin and globalMax, do not do anything
+            index = index + 1
+        return maxval
 
 '''
 Method1: Brute-force, O(n2)
