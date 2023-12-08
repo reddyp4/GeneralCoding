@@ -59,5 +59,5 @@ class Solution:
 '''
 Method1: Brute-force, O(n2)
 
-Method2: 
+Method2: Single pass, check global min, T:O(n),S:0(1)
 '''
