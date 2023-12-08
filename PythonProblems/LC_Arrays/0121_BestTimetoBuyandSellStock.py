@@ -26,3 +26,23 @@ Constraints:
 0 <= prices[i] <= 104
 '''
 
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        #Method1: Bruteforce, find every profit, and get the maximum. O(n2)
+        #Method2: Two pointer approach? left get the increasing order
+        # right, checks the max, and left moves to next increasing
+        left, right, length, maxval =0, 0, len(prices)-1, 0
+        while (left<=length-1):
+            currentval = prices[left]
+            # Check max of rest of list-currentval, if max > 0, then stock increase possible
+            tempmax = max(prices[left+1:])-currentval
+            if tempmax > maxval:
+                maxval = tempmax
+            left = left + 1
+        return(maxval)
+
+'''
+Method1: Brute-force, O(n2)
+
+Method2: 
+'''
