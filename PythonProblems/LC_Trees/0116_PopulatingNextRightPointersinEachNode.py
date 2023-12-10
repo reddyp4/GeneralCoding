@@ -47,7 +47,6 @@ You may only use constant extra space.
 The recursive approach is fine. You may assume implicit stack space does not count as extra space for this problem.
 
 '''
-
 """
 # Definition for a Node.
 class Node:
@@ -61,6 +60,8 @@ class Node:
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
         #Method1: Use Queue and BFS
+        '''
+        #M1:
         if(root is None):
             return None
         queue = []
@@ -84,6 +85,24 @@ class Solution:
                     queue.append(node.right)
                     levelCount = levelCount + 1
             n = levelCount
+        return root
+        '''
+        #Method2: Use previously established pointers
+        #left->right is easy
+        #left.right->right->left etc... assumed that that level is already completed
+        #this reduces the need for queue!!! O(1) for space due to previous level completion
+        startNode = root
+        if(root is None or root.left is None):
+            return root
+        root.left.next = root.right
+        while (startNode.left is not None):
+            node = startNode
+            while(node.next is not None):
+                node.left.next = node.right
+                node.right.next = node.next.left
+                node = node.next
+            node.left.next = node.right
+            startNode = startNode.left
         return root
 
 '''
