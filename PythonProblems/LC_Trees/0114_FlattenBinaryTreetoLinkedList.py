@@ -47,7 +47,7 @@ Follow up: Can you flatten the tree in-place (with O(1) extra space)?
 class Solution:
     def recurFlatten(self,root, linked: List[TreeNode]) -> None:
         if(root is None):
-            linked.append(root)
+            #linked.append(root)
             return
         #parent
         nodeLeft = root.left
@@ -73,5 +73,7 @@ class Solution:
             return root
         linked = []
         self.recurFlatten(root,linked)
+        for index in range(len(linked)-1):
+            linked[index].right = linked[index+1]
         root = linked
         return
