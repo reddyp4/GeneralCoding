@@ -69,6 +69,8 @@ class Solution:
         Do not return anything, modify root in-place instead.
         """
         #M1: Access tree, then recursive on left, recursive on right
+        #M1: Uses a linkedlist, space:o(n), time:o(n)
+        '''
         if(root is None):
             return root
         linked = []
@@ -76,4 +78,13 @@ class Solution:
         for index in range(len(linked)-1):
             linked[index].right = linked[index+1]
         root = linked
-        return
+        return'''
+        #M2: Space:O(1)->Morris Approach
+        #while(unfinished):
+        #if(left):
+        #.  Get predecessor in left
+        #.  predecessor->right->current
+        #.  go to left
+        #else:
+        #.  visit it
+        #.  go to right
