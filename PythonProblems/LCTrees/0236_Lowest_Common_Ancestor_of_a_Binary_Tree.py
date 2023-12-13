@@ -39,6 +39,33 @@ p and q will exist in the tree.
 #         self.left = None
 #         self.right = None
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
 class Solution:
+    def foundPQ(self,root:'TreeNode',p:'TreeNode',q:'TreeNode',LCA:List['TreeNode']) -> [pfound:int, qfound:int]:
+        if(root==p):
+            pfound = 1
+        if(root==q):
+            qfound = 1
+        if(root is None):
+            return [0,0]
+        #check left
+        [pnew,qnew] = foundPQ(root.left)
+        pfound = pfound or pnew
+        #check right
+        [pnew,qnew] = foundPQ(root.right)
+        qfound = qfound or qnew
+        if(pfound and qfound):
+            LCA.append(root)
+
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        
+        #M1: If p is child of q, then q, if q is child of p, then p
+        #For each root, determine pfound, qfound, and when both are 1, continue to left, and then right
+        # if pfound or qfound changes to 0, then return previous node
+        foundPQ(root,p,q,[])
+        return LCA[-1]
