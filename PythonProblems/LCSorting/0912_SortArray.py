@@ -21,5 +21,34 @@ Constraints:
 '''
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
-        
-
+        if(len(nums)<=1):
+            return nums
+        #Get midpoint
+        mid = int(len(nums)/2)
+        #Recursive sort left, sort right
+        leftarr = self.sortArray(nums[:mid])
+        rightarr = self.sortArray(nums[mid:])
+        #combine
+        i,j,k = 0,0,0
+        while(i<len(leftarr) and j<len(rightarr)):
+            if(leftarr[i]<rightarr[j]):
+                nums[k]=leftarr[i]
+                i=i+1
+            elif(leftarr[i]>rightarr[j]):
+                nums[k]=rightarr[j]
+                j=j+1
+            elif(leftarr[i]==rightarr[j]):
+                nums[k]=leftarr[i]
+                k=k+1
+                nums[k]=rightarr[j]
+                i,j = i+1, j+1
+            k = k+1
+        while(i<len(leftarr)):
+            nums[k]=leftarr[i]
+            i=i+1
+            k=k+1
+        while(j<len(rightarr)):
+            nums[k]=rightarr[j]
+            j=j+1
+            k=k+1
+        return nums
