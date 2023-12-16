@@ -66,3 +66,13 @@ class Solution:
             node = node.next
         node.next = afterrightNode
         return dummy.next
+
+'''
+M1: Stack, single pass
+Time:O(n), Space:O(n)
+
+M2: Iterative recursion
+
+M3: Recursion
+
+'''
