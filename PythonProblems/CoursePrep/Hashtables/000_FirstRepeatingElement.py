@@ -98,5 +98,12 @@ if __name__ == '__main__':
 '''
 Hashtable lookup: O(n)
 
+Cracking the coding interview
+1) Speak more
+2) Clarify with more questions
+3) Get fmiliar more with code
+4) Test cases
+5) Take hints 
+
 '''
 
