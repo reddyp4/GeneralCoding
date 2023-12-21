@@ -13,6 +13,14 @@ def printLL(head):
         print(node.val,"->")
         node=node.next
 
+#Recursion
+def reverseLLRecur(head,newhead): # -> [head,newhead]:
+    if(head.next is None):
+        return [head,head]
+    [node,newhead] = reverseLLRecur(head.next,newhead)
+    node.next = head
+    return [head,newhead]
+
 #Using stack
 def reverseLL(head):
     if(head is None or head.next is None):
@@ -49,5 +57,8 @@ head=addNode(head,8)
 head=addNode(head,1)
 printLL(head)
 print("Reversed LL")
-newhead = reverseLL(head)
-print(newhead)
+#newhead = reverseLL(head)
+newhead=ListNode(0)
+[head,newhead] = reverseLLRecur(head,newhead)
+head.next = None
+printLL(newhead)
