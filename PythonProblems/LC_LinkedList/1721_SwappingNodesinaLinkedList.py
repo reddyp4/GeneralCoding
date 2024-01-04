@@ -38,6 +38,11 @@ The number of nodes in the list is n.
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def swapNodes(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         if(head.next is None):
@@ -52,19 +57,19 @@ class Solution:
             return head
         node,index=dummy,0
         while(node):
-            index=index+1
             if(index==k-1):
                 parentk=node
-            elif(index==k):
+            if(index==k):
                 nodek=node
-            elif(index==(k+1)):
+            if(index==(k+1)):
                 childk=node
-            elif(index==(length-k)):
+            if(index==(length-k)):
                 parentnk=node
-            elif(index==(length-k+1)):
+            if(index==(length-k+1)):
                 nodenk=node
-            elif(index==(length-k+2)):
+            if(index==(length-k+2)):
                 childnk=node
+            index=index+1
             node=node.next
         #swap
         parentk.next=nodenk
