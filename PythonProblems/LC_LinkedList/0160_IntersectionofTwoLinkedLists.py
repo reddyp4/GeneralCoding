@@ -91,18 +91,38 @@ class Solution:
             node=node.next
         return None
         #M2:Memory:O(1), time O(m+n). Move to end, and should point to same node
-        '''
         node1,node2=headA,headB
+        lengthA,lengthB=0,0
         while(node1.next):
             node1=node1.next
+            lengthA=lengthA+1
         while(node2.next):
             node2=node2.next
+            lengthB=lengthB+1
         if(node1==node2):
-            #Intersection
+            #intersection. m=a+c,n=b+c, move node1 by a, node2 by b?
+            #say a>b, move longer by (a-b), then move together
+            node1,node2=headA,headB
+            if(lengthA>lengthB):
+                node=node1
+            else:
+                node=node2
+            #print(node1.val,node2.val,node.val,lengthB-lengthA)
+            length=0
+            while(node and length<abs(lengthA-lengthB)):
+                length=length+1
+                #print(node.val)
+                node=node.next
+            if(lengthA>lengthB):
+                node1=node
+            else:
+                node2=node
+            #print(node1.val,node2.val)
+            while(node1!=node2 and node1!=None and node2!=None):
+                node1,node2=node1.next,node2.next
+            return node1
         else:
             return None
-        '''
-
 '''
 M1: Use hash. Memory intensive.
 M2: Check intersection, but going to end. Reverse the lists and check when they diverge.
