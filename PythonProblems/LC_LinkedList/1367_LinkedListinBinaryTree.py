@@ -55,14 +55,14 @@ The number of nodes in the list will be in the range [1, 100].
 #         self.right = right
 class Solution:
     def recur(self, head, node, flag):
-        if(node and head):
-            print("Base: head.val:",head.val,"node:",node.val,"flag:",flag)
+        #if(node and head):
+        #    print("Base: head.val:",head.val,"node:",node.val,"flag:",flag)
         #End-case
         if(node is None):
-            print("Found!")
+            #print("Found!")
             return True
         if(head is None):
-            print("Reached end of tree!")
+            #print("Reached end of tree!")
             return False
         #Case of match, already started comparing
         if(flag):
@@ -71,15 +71,15 @@ class Solution:
                 return False
             #Proceed if match
             if(head.left):
-                if(node.next):
-                    print("Going left: head:",head.val,"node.next:",node.next.val,"flag:",flag)
+                #if(node.next):
+                #    print("Going left: head:",head.val,"node.next:",node.next.val,"flag:",flag)
                 flag=self.recur(head.left,node.next,flag)
                 if(flag):
                     return flag
             if(head.right):
                 flag=oldflag
-                if(node.next):
-                    print("Going left: head:",head.val,"node.next:",node.next.val,"flag:",flag)
+                #if(node.next):
+                #    print("Going left: head:",head.val,"node.next:",node.next.val,"flag:",flag)
                 flag=self.recur(head.right,node.next,flag)
                 if(flag):
                     return flag
@@ -93,22 +93,22 @@ class Solution:
             if(head.left):
                 flag=oldflag
                 if(flag):
-                    if(node.next):
-                        print("Going left: head:",head.val,"node.next:",node.next.val,"flag:",flag)
+                    #if(node.next):
+                    #    print("Going left: head:",head.val,"node.next:",node.next.val,"flag:",flag)
                     flag=self.recur(head.left,node.next,flag)
                 else:
-                    print("Going left: head:",head.val,"node:",node.val,"flag:",flag)
+                    #print("Going left: head:",head.val,"node:",node.val,"flag:",flag)
                     flag=self.recur(head.left,node,flag)
                 if(flag):
                     return flag
             if(head.right):
                 flag=oldflag
                 if(flag):
-                    if(node.next):
-                        print("Going right: head:",head.val,"node.next:",node.next.val,"flag:",flag)
+                    #if(node.next):
+                    #    print("Going right: head:",head.val,"node.next:",node.next.val,"flag:",flag)
                     flag=self.recur(head.right,node.next,flag)
                 else:
-                    print("Going right: head:",head.val,"node:",node.val,"flag:",flag)
+                    #print("Going right: head:",head.val,"node:",node.val,"flag:",flag)
                     flag=self.recur(head.right,node,flag)
                 if(flag):
                     return flag
