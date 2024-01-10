@@ -38,10 +38,30 @@ The number of nodes in the tree is in the range [0, 104].
 #         self.val = val
 #         self.left = left
 #         self.right = right
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
+    def depthTree(self,root):
+        if(root is None):
+            return 1
+        leftdepth,rightdepth=0,0
+        if(root.left):
+            leftdepth=self.depthTree(root.left)
+        if(root.right):
+            rightdepth=self.depthTree(root.right)
+        if(leftdepth>rightdepth):
+            return leftdepth+1
+        else:
+            return rightdepth+1
+
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         #Method1: BFS and count the number until queue is empty
         #Can use from collections import deque for faster access
+        '''
         count,n=0,1
         queue = []  #unofficial queue
         queue.append(root)  #number of elements in first level
@@ -63,7 +83,12 @@ class Solution:
             n = levelCount
             count = count + 1
         return count
-
+        '''
+        #Method2: Recursive, with DFS
+        if(root is None):
+            return 0
+        maxdepth=self.depthTree(root)
+        return maxdepth
 '''
 M1: BFS (Beats 29% on time, 86% on space)
 Space: O(n) -> Stored elements in queue
