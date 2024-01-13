@@ -49,34 +49,51 @@ A node with a value of start exists in the tree.
 #         self.left = left
 #         self.right = right
 class Solution:
-    self.node = None
+    foundShare = 0
+    shareDepth = 0
     
-    def depthTree(self, root, depth):
+    def depthTree(self, root, share):
         if(root is None):
-            return depth
-        depth=depth+1
-        olddepth=depth
+            return 1
+        leftdepth,rightdepth=0,0
+        self.shareDepth=self.shareDepth+1
         if(root.left):
-            newdepth=self.depthTree(root.left,depth)
-            if(newdepth>depth):
-                depth=newdepth
-        depth=olddepth
+            leftdepth=self.depthTree(root.left,share)+1
         if(root.right):
-            newdepth=self.depthTree(root.right,depth)
-            if(newdepth>depth):
-                depth=newdepth
-        return depth
+            rightdepth=self.depthTree(root.right,share)+1
+        if(root.val==share):
+            self.shareDepth = max(leftdepth,rightdepth)
+            self.foundShare = 1
+        else:
+            self.shareDepth=self.shareDepth-1
+        if(leftdepth>rightdepth):
+            return leftdepth
+        else:
+            return rightdepth
 
     def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:
         if(root is None):
             return 0
         if(root.left is None and root.right is None):
             return 0
-        if(root.val==share):
-            return self.depthTree(root,0)
-        depth=0
-        return depth
         #Scenario1: if share is head, just return depth of tree
-        #Scenario2: share lies on max depth, then ans=max(depth of share+depth of non-tree,depth of share tree)
-        #Scenario3: share lies on min side, ans=max depth+depth of share
-        #trick is do a single traverse
+        if(root.val==start):
+            return self.depthTree(root,start)
+        depth=0
+        #Scenario2: Find left or right subtree location of share, get new depth
+        #also find depth of share in mean while
+        leftdepth,rightdepth=0,0
+        if(root.left):
+            leftdepth = self.depthTree(root.left,start)
+        if(self.foundShare==1):
+            self.foundShare = 2
+        if(root.right):
+            rightdepth = self.depthTree(root.right,start)
+        if(self.foundShare==1):
+            #share on right side
+            result = max(leftdepth+1+self.shareDepth,self.shareDepth)
+        else:
+            #share on left side
+            result = max(rightdepth+1+self.shareDepth,self.shareDepth)
+        print("leftdepth:",leftdepth,"rightdepth:",rightdepth,"shareDepth:",self.shareDepth,"foundShare",self.foundShare)
+        return result
