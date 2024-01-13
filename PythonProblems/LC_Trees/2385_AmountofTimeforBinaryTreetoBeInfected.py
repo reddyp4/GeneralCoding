@@ -97,3 +97,23 @@ class Solution:
             result = max(rightdepth+1+self.shareDepth,self.shareDepth)
         print("leftdepth:",leftdepth,"rightdepth:",rightdepth,"shareDepth:",self.shareDepth,"foundShare",self.foundShare)
         return result
+
+'''
+1) understand the problem, clarification, get constraints, throw ball to interviewer, take your time
+2) approach discussion, if nothing comes try bruteforce, ask interviewer
+3) ask interviewer if code should work, not fully optimized even if implemented - always close on approach
+   technique - thought process - call out data structure - if handyman tool is correct?
+   dsa: tools - hashmap, lists etc. ask interviewer for correct dsa 
+4) implementation - should be clean implementation - do not throw ball to interviewer - run a couple of scenarios
+5) throw ball to interviewer for discussion, test cases, complexity, may be phase-1, phase-2, 40 mins-2medium
+
+do practice, apply logical skills - stay calm - ask hints
+keep doing - retrospective of interviewer - what you were missing on every problem 
+resources - online - leetcode is best - focus on approach, understand basics - logical skills 
+can look at variations - 
+
+1 or 2 problems - background area - focus in basics 
+
+lot of patience - market is not good
+
+'''
