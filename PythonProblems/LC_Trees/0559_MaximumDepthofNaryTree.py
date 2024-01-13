@@ -48,9 +48,14 @@ class Solution:
         if(len1==0):
             return 1
         depth=[0]*len1
+        for index in range(len1):
+            depth[index]=self.depthTree(children[index])+1
+        maxdepth = max(depth)
+        return maxdepth
+
     def maxDepth(self, root: 'Node') -> int:
         #Similar to BST, except keep the length[number of children]
         if(root is None):
             return 0
         depth = self.depthTree(root)
-        return 0
+        return depth
