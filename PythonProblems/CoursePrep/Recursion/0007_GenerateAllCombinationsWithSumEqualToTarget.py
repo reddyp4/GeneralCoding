@@ -38,20 +38,28 @@ seen = {}
 
 def recursive(current,key,index,target,final,arr):
     #print("current:",current,"key:",key,"index:",index,"final:",final)
-    if(index==len(arr)):
-        if(len(current)!=0 and sum(current)==target):
-            #print("current3:",current,"key:",key,"index:",index,"final:",final)
-            if(key not in seen):
-                newcurrent=current.copy()
-                final.append(newcurrent)
-                seen[key]=1
+    if(len(current)!=0 and sum(current)>target):
+        print("End1")
         return
-    recursive(current,key,index+1,target,final,arr)
-    #print("current1:",current,"key:",key,"index:",index,"final:",final)
+    if(len(current)!=0 and sum(current)==target):
+        print("current3:",current,"key:",key,"index:",index,"final:",final)
+        if(key not in seen):
+            newcurrent=current.copy()
+            final.append(newcurrent)
+            seen[key]=1
+        return
+    if(index==len(arr)):
+        return
+    if(arr[index]>target):
+        #print("End2")
+        return
+    oldkey=key
     current.append(arr[index])
     #print("current2:",current,"key:",key,"index:",index,"final:",final)
     recursive(current,key+str(arr[index]),index+1,target,final,arr)
     current.pop()
+    recursive(current,oldkey,index+1,target,final,arr)
+    #print("current1:",current,"key:",key,"index:",index,"final:",final)
 
 def generate_all_combinations(arr, target):
     """
@@ -63,7 +71,12 @@ def generate_all_combinations(arr, target):
     """
     # Write your code here.
     final=[]
-    #print("arr:",arr)
+    arr.sort()
+    print("arr:",arr)
     recursive([],"",0,target,final,arr)
     #print("final:",final)
     return final
+
+'''
+Improvement by sorting
+'''
