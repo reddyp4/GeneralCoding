@@ -38,7 +38,7 @@ def helper(s,wordDict):
         newstr = s[start:i]
         if(newstr in wordDict):
             start=i+1
-            flag=helper(s[start:],wordDict)
+            flag=flag or helper(s[start:],wordDict)
         i+=1
     if(len(s)==0):
         #reached full string
