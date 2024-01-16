@@ -21,3 +21,38 @@ Input: s = "catsanddog", wordDict = ["cats","dog","and","cat"]    Output: true
 Input: s = "catsanddog", wordDict = ["cats","catsand","catsandog"]    Output: true
 
 '''
+
+def helper(s,wordDict):
+    flag=False
+    '''
+    Form string(slate), if string in Dict, start new slate, and form new slate and call recursive
+    Approach is to reduce string, until we are left with empty string, then we are parsed the complete string
+    '''
+    if(len(s)==0 or s in wordDict):
+        return True
+    # if current in wordDict, move to next string
+    lens = len(s)
+    start,i = 0,0
+    while(i<len(s)):
+        #search each string, if present, kick off a recursion, else continue
+        newstr = s[start:i]
+        if(newstr in wordDict):
+            start=i+1
+            flag=helper(s[start:],wordDict)
+        i+=1
+    if(len(s)==0):
+        #reached full string
+        return flag
+    return flag
+
+def sequence(s,wordDict):
+    current=""
+    return helper(s,wordDict)
+
+s="leetbabc"
+wordDict=["leet","leetabc"]
+flag=sequence(s,wordDict)
+if(flag):
+    print("Found")
+else:
+    print("Did not find")
