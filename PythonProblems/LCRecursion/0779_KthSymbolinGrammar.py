@@ -48,15 +48,38 @@ Constraints:
 '''
 
 class Solution:
-    def kthGrammar(self, n: int, k: int) -> int:
-        #need recursion? can do with space O(n)
-        s="0"
-        for i in range(1,n):
-            newstr = ""
-            for c in s:
+    d = {}
+    def recursion(self, n, s):
+        #print("n:",n,"s:",s)
+        if(n==1):
+            return s
+        lens2,newstr,newstr2=int(len(s)/2),"",""
+        if(s[:lens2] in self.d):
+            newstr+=self.d[s[:lens2]]
+        else:
+            for c in s[:lens2]:
                 if(c=="0"):
                     newstr+="01"
                 else:
                     newstr+="10"
-            s=newstr
+        self.d[s[:lens2]]=newstr
+        #print("s1:",s[:lens2],"newstr:",newstr)
+        if(s[lens2:] in self.d):
+            newstr2+=self.d[s[lens2:]]
+        else:
+            for c in s[lens2:]:
+                if(c=="0"):
+                    newstr2+="01"
+                else:
+                    newstr2+="10"
+        self.d[s[lens2:]]=newstr2
+        #("s2:",s[lens2:],"newstr2:",newstr2)
+        return self.recursion(n-1,newstr+newstr2)
+
+    def kthGrammar(self, n: int, k: int) -> int:
+        #need recursion? there is repeating elements
+        self.d["0"]="01"
+        self.d["1"]="10"
+        s=self.recursion(n,"0")
+        #print("s:",s)
         return int(s[k-1])
