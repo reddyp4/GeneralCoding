@@ -12,6 +12,11 @@ Given two integer n and k, return the kth (1-indexed) symbol in the nth row of a
   01
  0110
 01101001 ... 
+01101001+(10)+0110=0110 1001 1001 0110
+01101001 10010110 10010110 01101001
+
+f(n)=f(n-1)+(f(n-1)-complement)
+
 0 to 01
 1 to 10
 01 to 0110
@@ -83,3 +88,49 @@ class Solution:
         s=self.recursion(n,"0")
         #print("s:",s)
         return int(s[k-1])
+    
+'''
+    d = {}
+    def complement(self,s):
+        #complementary novel algorithm: do ~num&(ans), where ans=num&(num-1), until ans&(ans-1)!=0 or keep last known 1 bit
+        #print("com s:",bin(s))
+        if(s==0):
+            return 1
+        if(s==1):
+            return 0
+        ans=~s
+        while(s&(s-1)!=0):
+            s=s&(s-1)
+        #print("ans:",bin(ans),"s-1:",bin(s-1),"com s2:",bin(ans&(s-1)))
+        return ans&(s-1)
+
+    def recursion(self, n):
+        #print("n:",n)
+        result=""
+        if(n==1):
+            return "0"
+        #fn = fn-1 + fn-1-complement
+        if(n in self.d):
+            return self.d[n]
+        else:
+            result = self.recursion(n-1)
+            self.d[n] = result
+        compl = bin(self.complement(int(result,2)))
+        compl = compl[2:]
+        #print("compl:",compl)
+        if(len(compl)<len(result)):
+            while(len(compl)!=(len(result)-1)):
+                compl="0"+compl
+            compl="1"+compl
+        #print("n:",n,"result:",result,"compl:",compl,"ret:",result+compl)
+        return result+compl
+
+    def kthGrammar(self, n: int, k: int) -> int:
+        #need recursion? there is repeating elements
+        self.d[1]="0"
+        if(n in self.d):
+            return int((self.d[n])[k-1])
+        s=self.recursion(n)
+        #("s:",s)
+        return int(s[k-1])
+'''
