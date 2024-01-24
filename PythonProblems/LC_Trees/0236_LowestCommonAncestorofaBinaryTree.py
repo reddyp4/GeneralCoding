@@ -114,4 +114,5 @@ class Solution:
 '''
 Stack appraoch: space: O(n), time: O(n)
 Novel: Keep selfcount, leftcount, rightcount, LCA when sum(count,leftcount,rightcount)>1
+Pattern here is depth first algorithm, with slight addition of leftcount, rightcount on top
 '''
