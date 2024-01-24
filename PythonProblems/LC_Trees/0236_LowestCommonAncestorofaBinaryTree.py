@@ -42,7 +42,16 @@ p and q will exist in the tree.
 #         self.left = None
 #         self.right = None
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
 class Solution:
+    LCA=TreeNode()
+
     def getStackPath(self, current, target, path):
         if(current==None):
             return 0
@@ -77,31 +86,32 @@ class Solution:
                 break
         return pathp[index-1]
 
-    def foundPQ(self,root:'TreeNode',p:'TreeNode',q:'TreeNode',LCA:['TreeNode']):
+    def foundPQ(self,root,p,q):
+        #Single pass without path storage, indirect stack
+        leftcount,rightcount,count=0,0,0
         if(root==p):
-            pfound = 1
+            count=1
         if(root==q):
-            qfound = 1
-        if(root is None):
-            return [0,0]
-        #check left
-        [pnew,qnew] = foundPQ(root.left)
-        pfound = pfound or pnew
-        #check right
-        [pnew,qnew] = foundPQ(root.right)
-        qfound = qfound or qnew
-        if(pfound and qfound):
-            LCA.append(root)
+            count=1
+        if(root.left):
+            leftcount=self.foundPQ(root.left,p,q)
+        if(root.right):
+            rightcount=self.foundPQ(root.right,p,q)
+        if(leftcount+rightcount+count>1):
+            #either p/q parent of other (comes by count)
+            #or common parent, when both leftcount=rightcount=1
+            self.LCA=root
+        return leftcount or rightcount or count
 
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         #M1: stack approach, push nodes to two stacks and compare, similiar to LL intersection
-        node=self.stackLCA(root, p, q)
-        return node
+        #node=self.stackLCA(root, p, q)
+        #return node
         #M2:
-        '''foundPQ(root,p,q,[])
-        return LCA[-1]'''
-
+        self.foundPQ(root,p,q)
+        return self.LCA
 
 '''
 Stack appraoch: space: O(n), time: O(n)
+Novel: Keep selfcount, leftcount, rightcount, LCA when sum(count,leftcount,rightcount)>1
 '''
