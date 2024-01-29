@@ -1,7 +1,8 @@
 ''''
-Selection sort is brute-force sorting
+Selection sort is brute-force sorting but still decrease and conquer
 One inner and outer loop to sort elements
-First find minimum, put in beginning, and continue
+First find minimum, put in beginning, swap with 0-index, and continue recursively
+
 Input: nums = [5,2,3,1]
 Output: [1,2,3,5]
 Example 2:

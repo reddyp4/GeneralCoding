@@ -32,7 +32,13 @@ n == nums.length
 Each element in nums appears once or twice.
 '''
 class Solution:
+    def swap(self,nums,i,j):
+        temp=nums[i]
+        nums[i]=nums[j]
+        nums[j]=temp
+    
     def findDuplicates(self, nums: List[int]) -> List[int]:
+        '''Lazy Approach with sort
         nums.sort()
         result,index,lenums=[],0,len(nums)
         while(index<lenums-1):
@@ -40,8 +46,25 @@ class Solution:
                 result.append(nums[index])
                 index+=1
             index+=1
+        return result'''
+        #Use the sorting technique
+        for index in range(len(nums)):
+            while(nums[index]!=index+1):
+                d=nums[index]-1
+                if(nums[d]!=nums[index]):
+                    self.swap(nums,d,index)
+                else:
+                    break
+        print(nums)
+        #Now array is sorted, search and any element not present is duplicated
+        result=[]
+        for index in range(len(nums)):
+            if(nums[index]!=index+1):
+                result.append(nums[index])
         return result
-
 '''
 Not the fastest
+
+second version: sorting array partially!!! Look at cycle sort!
+
 '''
