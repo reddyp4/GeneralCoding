@@ -66,5 +66,7 @@ class Solution:
 Not the fastest
 
 second version: sorting array partially!!! Look at cycle sort!
+key is to keep swapping, until we find the element belonging at this location
+break happens try to swap an element at correct location!!!
 
 '''
