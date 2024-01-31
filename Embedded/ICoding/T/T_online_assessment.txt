@@ -1,0 +1,271 @@
+å#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <stdbool.h>
+ 
+ 
+////////////////////////////////////////////////////////////////////////////////
+/* TESLA MOTORS FIRMWARE TEST
+ * You have 90 minutes to complete the test. There are 100 points total.
+ *
+ * All solutions should compile in Coderpad.io without error or warnings
+ *
+ * Penalties:
+ * -1 / minute over time
+ * -3 for 1 or more compilation errors
+ * -2 for 1 or more compilation warnings
+ *
+ * Do not share the content of this test. All work must be your own and all
+ * coding should be done within coderpad to allow for the possibility of
+ * partial credit.
+ *
+ * A main() function is provided at the bottom for your use
+ */
+////////////////////////////////////////////////////////////////////////////////
+ 
+////////////////////////////////////////////////////////////////////////////////
+// 1) Macro (10 points)
+//    Create a macro (named INC_COND(COND, VAR)) to increment parameter VAR if
+//    parameter COND evaluates to TRUE and store it to an lvalue like:
+//    VAL = INC_COND(COND, VAR);
+// Answer: TODO
+
+ 
+ 
+ 
+////////////////////////////////////////////////////////////////////////////////
+// 2) Bit Manipulation (10 points)
+//    Write a function that swaps the highest bits in each nibble of the byte
+//    pointed to by the pointer b. (i.e. 0bAxxxBxxx -> 0bBxxxAxxx)
+ 
+void swapBits(uint8_t* b)
+{
+
+}
+ 
+////////////////////////////////////////////////////////////////////////////////
+// 3) Debugging (10 points)
+//    The function calculatePower() has not been producing correct
+//    output consistently. Please describe all issues with the function.
+ 
+uint16_t voltage; // populated from ADC measurement in a periodic interrupt (not shown)
+uint16_t current; // populated from ADC measurement in a periodic interrupt (not shown)
+ 
+uint8_t calculatePower(void)
+{
+    return voltage * current;
+}
+ 
+Answer:
+    
+ 
+////////////////////////////////////////////////////////////////////////////////
+// 4) Memory dump (10 points)
+//    The following memory dump was taken while debugging an issue.
+//
+// Memory Dump:
+// Address:  Byte:
+// 0x100A    0xFF
+// 0x100B    0xFF
+// 0x100C    0xFF
+// 0x100D    0xFF
+// 0x100E    0x0F
+// 0x100F    0xB8
+// 0x1010    0x6F
+// 0x1011    0xD5
+// 0x1012    0x70
+// 0x1013    0x99
+// 0x1014    0xFF
+// 0x1015    0xFF
+// 0x1016    0x7F
+// 0x1017    0xAB
+// 0x1018    0x78
+// 0x1019    0x56
+// 0x101A    0x34
+// 0x101B    0x12
+// 0x101C    0x00
+// 0x101D    0x00
+//
+// System is 32-bit, little-endian.
+// A variable called myPacket is of type packet_S (typedef below).
+// (Default compiler options; unpacked, naturally aligned.)
+//
+typedef struct
+{
+    uint8_t count;
+    uint16_t data[2];
+    uint32_t timestamp;
+} packet_S;
+ 
+// a) What address would a packet_S pointer need to point at such that the value
+//    of the member timestamp is 0x12345678
+//    (((myPacket_S*)ptr)->timestamp == 0x12345678)?
+//Answer:
+ 
+// b) If the system were big-endian, What address would a packet_S pointer
+//    need to point at such that the value of the member timestamp is 0xFFFF7FAB
+//    (((myPacket_S*)ptr)->timestamp == 0xFFFF7FAB)?
+// Answer: 
+ 
+////////////////////////////////////////////////////////////////////////////////
+// 5) State Machine (25 points)
+//
+//    Complete the function below to implement the state machine shown in the
+//    diagram below for a traffic light.
+//     * The initial state of the state machine should be RED
+//     * The function should output the current state of the state machine
+//     * Unexpected or invalid input should not cause a state transition
+//     * EMERGENCY_SERVICE_BEACON may be received in any state and should put the machine
+//       into the GREEN state
+//     * TIMER_MIA may be received in any state and should put the machine
+//       into the FAULT state
+//
+//
+//  PED_WALK_BUTTON   +--------+
+//   +--------------->|        |    TIMER
+//   |       TIMER    | YELLOW | ----------+      
+//   |   +----------->|        |           |
+//   |   |            +--------+           |
+//   |   |                                 |
+//   |   |                                 V
+// +---------+        TIMER           +---------+
+// |         |<---------------------- |         |
+// |  GREEN  |   INDUCTIVE_SENSOR     |   RED   |
+// |         |<---------------------- |         |
+// +---------+                        +---------+
+//
+//                                 +---------+
+//                                 |         |
+//      EMERGENCY_SERVICE_BEACON   |  GREEN  |
+//             +------------------>|         |
+//                                 +---------+
+//
+//                                 +---------+
+//                                 |         |
+//                  TIMER_MIA      |  FAULT  |
+//             +------------------>|         |
+//                                 +---------+
+  
+typedef enum
+{
+    RED,
+    YELLOW,
+    GREEN,
+    FAULT
+} state_E;
+  
+typedef enum
+{
+    TIMER,
+    PED_WALK_BUTTON, // Pedestrian crossing request
+    INDUCTIVE_SENSOR,
+    EMERGENCY_SERVICE_BEACON,
+    TIMER_MIA
+} input_E;
+  
+state_E stateMachine(input_E input)
+{
+  static state_E curr_state;
+  if(!curr_state)
+      curr_state = RED;
+  
+    // Answer: TODO
+  
+}
+ 
+ 
+////////////////////////////////////////////////////////////////////////////////
+// 6) Unit Testing (5 + 10 points)
+//    a) Add the missing unit test in test_initFiveAndInc() on the line that
+//       starts with "// TODO:".
+//   
+//    b) Complete the implementation of initFiveAndInc() such that it is able to
+//    pass all of the checks in test_initFiveAndInc() and result in a return
+//    value of true.
+ 
+bool initFiveAndInc(uint8_t* data)
+{
+    // Answer: TODO
+
+  
+}
+   
+//
+// @return true if all tests pass, false otherwise
+//
+bool test_initFiveAndInc(void)
+{
+    bool retval = true;
+    uint8_t data;
+       
+    // Test NULL case - initFiveAndInc() shall return false when passed NULL
+    retval &= (initFiveAndInc(NULL) == false);
+       
+    // Test initializer - on first run initFiveAndInc() shall set data to a
+    //                    value of 5U and return true
+    data = 0U;
+    retval &= initFiveAndInc(&data);
+    retval &= (data == 5U);
+  
+    // Test increment - initFiveAndInc() shall increment data with each
+    //                  successive call to a maximum value of 10U and return
+    //                  true each time
+    // TODO: fill out this test case
+
+ 
+    // Test saturation - initFiveAndInc() shall saturate data to a max
+    //                   value of 10U and return true
+    uint8_t i;
+    for (i = 0U; i < 5U; i++)
+    {
+        retval &= initFiveAndInc(&data);
+        retval &= (data == 10U);
+    }
+  
+    // Test NULL case again - initFiveAndInc() shall return false when
+    // passed NULL
+    retval &= (initFiveAndInc(NULL) == false);
+       
+    return retval;
+}
+ 
+ 
+////////////////////////////////////////////////////////////////////////////////
+// 7) Interpolation (20 points)
+// Given two arrays of n > 1 values arrX[] (sorted ascending) and arrY[]
+// (sorted ascending), write an interpolation function that satisfies the
+// following:
+//
+// * Interpolation(arrX[i]) returns arrY[i], for 0 <= i < n
+// * Interpolation(val) returns the one-dimensional interpolated value
+//   of val if arrX[0] <= val <= arrX[n-1]. That is: val shall be found between
+//   arrX[i-1] and arrX[i] and the return value shall be the interpolation of
+//   arrY[i-1] and arrY[i].
+// * Interpolation(val) returns -1 for any other case.
+//
+//           |                   /
+//   arrY[i] |------------------+
+//           |                / |
+//           |              /   |
+//    return |------------O     |
+//           |          / |     |
+//           |        /   |     |
+//           |      /     |     |
+// arrY[i-1] |----+       |     |
+//           |  / |       |     |
+//           |/___|_______|_____|______
+//            arrX[i-1]  val   arrX[i]
+ 
+//#define ARR_SIZE 50 //Fill this out
+//float arrX[ARR_SIZE] = {};
+//float arrY[ARR_SIZE] = {};
+float interpolate(float val)
+{
+    // Answer: TODO
+
+}
+ 
+int main()
+{
+    return 0;
+}
