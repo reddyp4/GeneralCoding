@@ -56,8 +56,20 @@ class Solution:
             index = index + 1
         return maxval
 
+        newMin, newMax, maxGain = 10**5, 0, 0
+        for index,stock in enumerate(prices):
+            if(stock<newMin):
+                newMin=stock
+                newMax=0
+            if(stock>newMax):
+                newMax=stock-newMin
+                if(newMax>maxGain):
+                    maxGain=newMax
+        return maxGain
 '''
 Method1: Brute-force, O(n2)
 
 Method2: Single pass, check global min, T:O(n),S:0(1)
+
+Revised version with global, local
 '''
