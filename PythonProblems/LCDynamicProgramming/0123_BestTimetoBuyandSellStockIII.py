@@ -53,7 +53,7 @@ class Solution:
                     gain+=self.recursive(prices[(k+1):],maxCount+1)
                     #print("prices:",prices,"prices[index]:",prices[index],"prices[k]:",prices[k],"gain:",gain)
                 maxGain = maxGain if (maxGain>gain) else gain
-        return maxGain
+        return maxGain~
 
     def maxProfit(self, prices: List[int]) -> int:
         #Use recursion baseline, every recursion checks next greater, and continues until count
