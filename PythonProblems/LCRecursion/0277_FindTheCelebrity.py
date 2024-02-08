@@ -66,6 +66,6 @@ Follow up: If the maximum number of allowed calls to the API knows is 3 * n, cou
 '''
 Bruteforce: make all calls
 connToIndex=n-1 and connFromIndex=1
-Failing on time limit
+Failing on time limit, Case 168/180
 
 '''
