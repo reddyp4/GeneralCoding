@@ -43,6 +43,9 @@ Follow up: If the maximum number of allowed calls to the API knows is 3 * n, cou
 # return a bool, whether a knows b
 # def knows(a: int, b: int) -> bool:
 
+class Solution:
+    def findCelebrity(self, n: int) -> int:
+        '''
         #Bruteforce: traverse entire array
         #maintain a connToIndex, connFromIndex. Once connFromIndex>2, skip this index and move on
         connToIndex,connFromIndex=[0]*n,[0]*n
@@ -62,10 +65,27 @@ Follow up: If the maximum number of allowed calls to the API knows is 3 * n, cou
             if(connToIndex[index]==n and connFromIndex[index]==1):
                 return index
         return -1
-
+        '''
+        #Optimal method: Traverse first row only. n calls. Traverse first column only. 
+        # if 0 knows 1, 0 is not a celebrity. If not, 1 is not a celebrity. Work to reduce the list
+        left,right,chosen=0,n-1,-1
+        while(left<right):
+            if(knows(left,right)):
+                left+=1
+            else:
+                right-=1
+        #Now check for left/right
+        for index in range(n):
+            if(knows(left,index) and index!=left) or (not knows(index,left) and index!=left):
+                return -1
+        return left
 '''
 Bruteforce: make all calls
 connToIndex=n-1 and connFromIndex=1
 Failing on time limit, Case 168/180
+
+Elegant is based on following premise:
+if left knows right, left is not a celebrity; else right is not a celebrity
+In the end, still need to check for left doesnt know everyone and everyone knows left
 
 '''
