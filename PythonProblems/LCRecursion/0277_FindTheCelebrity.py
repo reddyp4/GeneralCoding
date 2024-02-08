@@ -43,36 +43,29 @@ Follow up: If the maximum number of allowed calls to the API knows is 3 * n, cou
 # return a bool, whether a knows b
 # def knows(a: int, b: int) -> bool:
 
-class Solution:
-    def recursive(self, n, k, found,count):
-        #check if k is celebrity, if yes return
-        if(count==n):
-            #visited all nodes
-            return -1
-        connections,celeb,index = 0,-1,0
+        #Bruteforce: traverse entire array
+        #maintain a connToIndex, connFromIndex. Once connFromIndex>2, skip this index and move on
+        connToIndex,connFromIndex=[0]*n,[0]*n
+        index,k=0,0
         while(index<n):
-            #print("k:",k,"index:",index)
-            if(index!=k and knows(k,index)):
-                count+=1
-                #print("connection:",k,index)
-                connections+=1
-                celeb=self.recursive(n, index, found,count)
-                if(celeb!=-1):
-                    break
+            k=0
+            while(k<n):
+                if(knows(index,k)):
+                    #print("knows:","index:",index,"k:",k)
+                    connToIndex[k]+=1
+                    connFromIndex[index]+=1
+                k+=1
             index+=1
-        if(connections==0):
-            celeb=k
-        #print("connections:",connections,"k:",k,"celeb:",celeb)
-        return celeb
-        #else take all "connections", call them recursively
-
-    def findCelebrity(self, n: int) -> int:
-        count=0
-        celebrity = self.recursive(n,0,0,count)
-        return celebrity
+        #celebrity should where both arrays are equal to 1
+        #print("connFromIndex:",connFromIndex,"connToIndex:",connToIndex)
+        for index in range(n):
+            if(connToIndex[index]==n and connFromIndex[index]==1):
+                return index
+        return -1
 
 '''
-Recursion
-maintain connections
-Maintain count, so we dont end up in circular look-up
+Bruteforce: make all calls
+connToIndex=n-1 and connFromIndex=1
+Failing on time limit
+
 '''
