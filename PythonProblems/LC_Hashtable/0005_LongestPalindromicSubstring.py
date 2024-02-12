@@ -49,12 +49,13 @@ class Solution:
         return
 
     def longestPalindrome(self, s: str) -> str:
-        #Bruteforce: make dict with positions, cycle through all combinations
+        #Approach1: Dict with multi-values and iteration
         #Recursion? For every character, check between indices?
         #if two indices next to each other are palindromes, maintain the start,end indices
         if(len(s)==1):
             return s
         #O(n2) pushed to recursion?
+        '''
         result=[0,0]
         d={}
         for index in range(len(s)):
@@ -71,7 +72,36 @@ class Solution:
         if(result[0]==-1):
             return ""
         return s[result[0]:result[1]+1]
-
+        '''
+        #Approach2: assume dp table of n*n, 
+        #substr of 3 is pal if s[i+1]==s[i-1] and dp[i][i]
+        #next substr or center+i is pal, if s[c-i]==s[c+i] and dp[c+(i-1)] is true
+        #this is considred dp, since we are "building" on top of previous value
+        n=len(s)
+        result=[0,0]
+        dp=[[False] * n for _ in range(n)]
+        for i in range(n):
+            dp[i][i]=True
+        #Now for every index, start checking the increasing growing strings, until end
+        substr=s[0]
+        for i in range(n-1):
+            if(s[i]==s[i+1]):
+                dp[i][i+1]=True
+                result=[i,i+1]
+        #print("dp:",dp)
+        for diff in range(2,n):
+            for i in range(n-diff):
+                j = i + diff
+                print("checking[",i,":",j,"]")
+                if(s[i]==s[j] and dp[i+1][j-1]):
+                    dp[i][j]=True
+                    print("oldstring:",substr)
+                    if(len(substr)>(2*j)):
+                        substr=s[i-j:i+j+1]
+                    print("newstring:",substr)
+                    result=[i,j]
+        #print("dp:",dp)
+        return s[result[0]:result[1]+1]
 '''
 Maintain a dict of key-multiple indices
 Check palindrom for each pairs
