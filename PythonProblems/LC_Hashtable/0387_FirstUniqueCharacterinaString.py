@@ -38,13 +38,17 @@ class Solution:
                 d[c]+=1
             else:
                 d[c]=1
+        '''
         for index in range(len(s)):
             if(d[s[index]]==1):
                 return index
-        return -1
-        #Approach2: sort string based on the count, and pick the first character
-        #this is fixed space for characters, so O(1). Sort 
-    
+        return -1'''
+        #Approach2: make the count dict, and sort the dict itself
+        result=sorted(d.items(), key=lambda x:x[1])
+        if(result[0][1]!=1):
+            return -1
+        return s.find(result[0][0])
+        #Approach3: convert dict to list and sort list1 by list2    
 '''
 make count, and check first character for count of 1
 Space: O(1) and time: O(n)
