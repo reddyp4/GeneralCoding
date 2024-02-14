@@ -45,6 +45,8 @@ Answer will fit in a 64-bit integer
 
 dp={}
 
+
+#This is recursion by checking each element
 def makeSteps(current,steps,n,final):
     #print("current:",current,"n:",n,"final:",final)
     if(n==0):
@@ -77,7 +79,56 @@ def count_ways_to_climb(steps, n):
     #    dp[steps[index]].append(steps[index])
     #print("dp:",dp)
     current=[]
-    final = makeSteps(current,steps,n,final)
+    #Recursion works for 70% cases
+    #final = makeSteps(current,steps,n,final)
     #print(final)
-    return final
+    #return final
+    #DP: dp(n)+=dp(n-s_k)+1
+    lenSteps=len(steps)
+    dp = {}
+    dp[0]=0
+    dp[steps[0]]=1
+    if(n==1):
+        if(steps[0]!=1):
+            return 0
+        else:
+            return 1
+    for i in range(n+1):
+        dp[i]=0
+        for k in range(lenSteps):
+            if(i==steps[k]):
+                dp[i]+=1
+            if((i>steps[k]) and (dp[i-steps[k]]>=1)):
+                dp[i]+=dp[i-steps[k]]
+    print("dp:",dp)
+    return dp[n]
 
+
+#count_ways_to_climb([2,3],7)
+#count_ways_to_climb([1],7)
+count_ways_to_climb([1,2,3,4,5],5)
+
+'''
+{
+"steps": [1, 2],
+"n": 2
+}
+
+{
+"steps": [2, 3],
+"n": 7
+}
+exp: 3
+
+{
+"steps": [1],
+"n": 10
+}
+exp:1
+
+{
+"steps": [1, 2, 3, 4, 5],
+"n": 5
+}
+exp:16
+'''
