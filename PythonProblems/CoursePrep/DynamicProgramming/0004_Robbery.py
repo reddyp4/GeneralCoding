@@ -37,3 +37,27 @@ def maximum_stolen_value(values):
         dp[i]=max(dp[i-2]+values[i],dp[i-1])
     return dp[len(values)-1]
 
+def maximum_stolen_value(values):
+    """
+    Args:
+     values(list_int32)
+    Returns:
+     int32
+    """
+    # Write your code here.
+    #Try non-mem DP
+    if(len(values)==1):
+        return values[0]
+    dp2=values[0]
+    dp1=max(values[0],values[1])
+    dp=dp1
+    for i in range(2,len(values)):
+        dp=max(dp2+values[i],dp1)
+        dp2=dp1
+        dp1=dp
+    return dp
+
+'''
+First try to do dp assuming memory
+Next try to remove memory
+'''
