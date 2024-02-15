@@ -18,6 +18,7 @@ Constraints:
 '''
 
 
+
 def maximum_stolen_value(values):
     """
     Args:
@@ -26,5 +27,13 @@ def maximum_stolen_value(values):
      int32
     """
     # Write your code here.
-    return 0
-    
+    #Traditional dp
+    if(len(values)==1):
+        return values[0]
+    dp={}
+    dp[0]=values[0]
+    dp[1]=max(values[0],values[1])
+    for i in range(2,len(values)):
+        dp[i]=max(dp[i-2]+values[i],dp[i-1])
+    return dp[len(values)-1]
+
