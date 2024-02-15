@@ -52,14 +52,55 @@ def can_reach_last_house(maximum_jump_lengths):
                     dp[i+j]=1
     return (dp[len1-1]==1)
 
-#array = [2, 3, 1, 0, 4, 7]
-array = [3, 1, 1, 0, 2, 4]
 
+#no array to maintain, just the last element?
+def can_reach_last_house2(maximum_jump_lengths):
+    """
+    Args:
+     maximum_jump_lengths(list_int32)
+    Returns:
+     bool
+    """
+    # Write your code here.
+    #Idea: just keep checking, if I need to extend the "imaginary" dp
+    dpend=maximum_jump_lengths[0]
+    len1=len(maximum_jump_lengths)
+    dpindex=0
+    dpendPrev=0
+    i=0
+    while(i<len1 and i<=dpend):
+        print("dpend:",dpend,"dpindex:",dpindex,"val:",maximum_jump_lengths[i],"index:",i)
+        if((maximum_jump_lengths[i]+i)>dpend):
+            dpend=maximum_jump_lengths[i]+i
+            dpindex=i
+            print("new dpend:",dpend,"dpindex:",dpindex)
+        i+=1
+    print("i:",i,"dpend:",dpend,"dpindex:",dpindex)
+    if(dpend<(len1-1)):
+        return False
+    return True
+
+array = [2, 3, 1, 0, 4, 7]
+#array = [3, 1, 1, 0, 2, 4]
+#array = [2, 4, 1, 0, 2, 0, 1]
+
+'''
 if(can_reach_last_house(array)):
     print("Can reach!")
 else:
     print("Cannot reach!")
+'''
+
+if(can_reach_last_house2(array)):
+    print("Can reach!")
+else:
+    print("Cannot reach!")
+
 
 '''
-Timie limit excceded:
+[1, 2, 3, 4, 5]
+[0, 6, 5, 4, 3, 2]
+[3, 2, 1, 0, 1, 2, 3]
+[2, 4, 1, 0, 2, 0, 1]
+
 '''
