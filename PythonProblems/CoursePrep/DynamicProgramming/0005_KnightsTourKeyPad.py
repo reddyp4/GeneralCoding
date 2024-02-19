@@ -45,8 +45,8 @@ Constraints:
 '''
 
 
+'''
 def count_phone_numbers_of_given_length(start_digit, phone_number_length):
-    """
     Args:
      start_digit(int32)
      phone_number_length(int32)
@@ -61,6 +61,7 @@ def count_phone_numbers_of_given_length(start_digit, phone_number_length):
     count=[0]*10
     #Bruteforce keep track of all digits
     '''
+    '''
     digits=[]
     digits.append(start_digit)
     print("digits:",digits)
@@ -72,10 +73,48 @@ def count_phone_numbers_of_given_length(start_digit, phone_number_length):
         digits=(options)
         print("digits:",digits)
         total+=len(digits)
-    return len(options)'''
-    #DP: dp(n) -> depends on digits in dp(n-1)
+    return len(options)
+'''
+
+#v2: Maintain a list of indices 0 to 9, that has a count of how many times digit appears
+def count_phone_numbers_of_given_length(start_digit, phone_number_length):
+    """
+    Args:
+     start_digit(int32)
+     phone_number_length(int32)
+    Returns:
+     int64
+    """
+    # Write your code here.
+    if(phone_number_length==1):
+        return len(keys[start_digit])
+    keys={0:[4,6],1:[6,8],2:[7,9],3:[4,8],4:[0,3,9],5:[],6:[0,1,7],7:[2,6],8:[1,3],9:[2,4]}
+    digits=[0]*10
+    digits[start_digit]=1
+    while(phone_number_length>1):
+        #print("digits:",digits)
+        newDigits,i=[0]*10,0
+        while(i<10):
+            if(digits[i]!=0):
+                #print("digits[i]:",keys[i])
+                for k in keys[i]:
+                    newDigits[k]+=digits[i]
+            i+=1
+        #print("newDigits:",newDigits)
+        for i in range(10):
+            digits[i]=newDigits[i]
+        phone_number_length-=1
+    return sum(digits)
+
+
 
 '''
+Initial idea is to maintain the last known list of digits, so we can get n+1
+However this list grows in polynomial fashion
+
+Since the digits are only 0 to 9, now we can improve by maintain a count list of digits
+newDigit count is created
+
 [1,2]=2
 [1,3]=5
 [6,20]=9068032
