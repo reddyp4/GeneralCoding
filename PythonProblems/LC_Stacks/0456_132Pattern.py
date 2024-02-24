@@ -47,7 +47,9 @@ class Solution:
             minStk.append(min(minStk[-1],nums[i]))
         #Traverse from end, for every greater element and add to stack until 
         stk.append(nums[-1])
+        #print("minStk:",minStk)
         for i in range(len1-2,-1,-1):
+            #print("i:",i,"stk:",stk)
             if(nums[i]>minStk[i]):
                 #condition 13 is satisfied, so check condition 32 
                 if(len(stk)==0):
@@ -56,14 +58,19 @@ class Solution:
                     stk.append(nums[i])     #cannot meet 32 condition, just append to stack
                 elif(nums[i]>stk[-1]):
                     #32 condition satisifed, now check 12 condition
+                    #print("Satisfied 12")
                     if(minStk[i]<stk[-1]):
                         return True     #satisfies 12
                     else:
                         #keep popping until reached a value satisfying 12 or lower
-                        while(len(stk)!=0 and minStk[-1]<stk[-1]):
+                        #print("Checking:",minStk[i]," and ",stk[-1])
+                        while(len(stk)!=0 and minStk[i]>=stk[-1]):
                             stk.pop()
-                        if(len(stk)!=0 and minStk[i]<stk[-1]):
+                        if(len(stk)!=0 and minStk[i]<stk[-1] and nums[i]>stk[-1]):
+                            #print("1:",minStk[i],"4:",nums[i],"3:",stk[-1])
                             return True
+                        if(minStk[i]<nums[i]):
+                            stk.append(nums[i])
                 else:
                     #equal, i.e. like 33, so nothing to do
                     continue
