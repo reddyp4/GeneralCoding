@@ -39,8 +39,9 @@ class Solution:
         for i in range(1,maxIndex+1):
             stk[i] = height[i] if (height[i]>stk[i-1]) else stk[i-1]
         print("From left stk:",stk)
-        for i in range(len1-1,maxIndex,-1):
-            stk[i] = height[i] if (height[i]>stk[i-1]) else stk[i-1]
+        stk[-1]=height[-1]
+        for i in range(len1-2,maxIndex,-1):
+            stk[i] = height[i] if (height[i]>stk[i+1]) else stk[i+1]
         print("From right stk:",stk)
         #compute volume
         vol=0
@@ -51,7 +52,6 @@ class Solution:
             newHeight=stk[i]-height[i]
             vol+=newHeight
         return vol
-
 '''
 Basic Idea1: Use a monotonic Stack, where height of water at that is max so far
 Do from left and right until the max element
