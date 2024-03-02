@@ -30,3 +30,50 @@ Constraints:
 -231 <= dividend, divisor <= 231 - 1
 divisor != 0
 '''
+
+class Solution:
+    def divide(self, dividend: int, divisor: int) -> int:
+        #103,3;1035,30
+        if(dividend==-2147483648 and divisor==-1):
+            return 2147483647
+        sign = -1 if (dividend*divisor<0) else 1
+        dividend=abs(dividend)
+        divisor=abs(divisor)
+        if(dividend<divisor):
+            return 0
+        if(divisor==1):
+            return dividend*sign
+        newdividend=int(str(dividend)[0])
+        dividend=str(dividend)[1:]
+        quotient=str(int(newdividend/divisor))
+        newdividend=newdividend-int(newdividend/divisor)*divisor
+        #print("Outside loop: quotient:",quotient,"newdividend:",newdividend,"remaining:",dividend)
+        while(len(dividend)!=0): #int(str(newdividend)+dividend)>=divisor):
+            #print("New round: quotient:",quotient,"newdividend:",newdividend,"remaining:",dividend)
+            m=0
+            while(newdividend<divisor and len(dividend)!=0):
+                newdividend=newdividend*10+int(dividend[0])
+                if(newdividend<divisor): # and m>=1):
+                    quotient+="0"
+                dividend=dividend[1:]
+                m+=1
+                #print("Find number.. quotient:",quotient,"newdividend:",newdividend,"remaining:",dividend)
+            if(len(dividend)==0 and newdividend<divisor):
+                break
+            k=0
+            #print("Ready for division: quotient:",quotient,"newdividend:",newdividend,"remaining:",dividend)
+            while(newdividend>=divisor):
+                newdividend-=divisor
+                k+=1
+            quotient+=str(k)
+            #print("Finished division:quotient:",quotient,"newdividend:",newdividend,"remaining:",dividend)
+            #Update newdividend and complete dividend
+            #if(len(dividend)==0 or newdividend==0):
+            #    break
+        return int(quotient)*sign
+
+'''
+Pick part of dividend from beginning, everytime <divisor, add 0 - miss the first time only
+Some tricks: take absolute of numbers, after getting sign and multiply quotient later
+This solution beats 99.93% solutions on time
+'''
