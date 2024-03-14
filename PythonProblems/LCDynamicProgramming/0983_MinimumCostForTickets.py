@@ -47,29 +47,58 @@ costs.length == 3
 
 class Solution:
     def mincostTickets(self, days: List[int], costs: List[int]) -> int:
-        lenDays = len(days)
-        dp=[10**10]*(1+days[-1])
+        totalCost=0
+        numDays=len(days)
+        #all cost are high initially
         day=days[0]
-        dp[day]=costs[0]
-        lastday=day
-        for i in range(1,lenDays):
-            day = days[i]
-            #Check previous day
-            val1=dp[lastday]+costs[0]
-            #check lowest in last seven days
-            if day>=7:
-                val2=min(dp[day-6:day])+costs[1]
+        costDay=[0]*(days[-1]+1)
+        totalCost=[0]*(days[-1]+1)
+        #initialize the first element
+        day=days[0]
+        costDay[day]=min(costs)     #cost of ticket chosen on that day
+        totalCost[day]=costDay[day]   #total cost of tickets so far
+        lastDay=day
+        #now start from first to all
+        for i in range(1,numDays):
+            day=days[i]
+            #get the three minimum values, option1, previoys+cost0, 
+            #option2,cost7 days before+cost1,option3:cost30days before+cost30
+            #do not forget to adjust the price difference if ticket was purchased on that day
+            #option1: revoke last day and buy individual tickets
+            val1 = totalCost[lastDay]-costDay[lastDay]+costs[0]*2
+            #option2: revoke the last day or 7th last day
+            #7-day minimum, adjust the balance
+            val2,val3=10**10,10**10
+            if(day<=7):
+                day7=1
             else:
-                val2=min(dp[:day])+costs[1]
-            #check lowest in last thirdy days
-            if day>=30:
-                val3=min(dp[day-30:day])+costs[2]
+                day7=day-6
+            while(costDay[day7]==0 and day7<day):
+                day7+=1
+            if(day7!=day):
+                newval=totalCost[day7]-costDay[day7]+costs[1]
+                val2=val2 if newval>val2 else newval
+            if(day<=30):
+                day30=1
             else:
-                val3=min(dp[0:day])+costs[2]
-            print("range1:",day,",range2:",day-6,",range3:",day-30)
-            minval = min(val1,val2,val3)
-            print("lastday:",lastday,"val1:",val1,",val2:",val2,",val3:",val3)
-            dp[day]=minval
-            lastday=day
-        print("dp:",dp)
-        return dp[-1]
+                day30=day-29
+            while(costDay[day30]==0 and day30<day):
+                day30+=1
+            if(day30!=day):
+                newval=totalCost[day30]-costDay[day30]+costs[2]
+                val3=val3 if newval>val3 else newval
+            #pick the minimum
+            print("lastDay:",lastDay,"day:",day,",day7:",day7,",day30:",day30,"val1:",val1,",val2:",val2,",val3:",val3)
+            minval=min(val1,val2,val3)
+            #readjust the values accordingly-do we need to do this?
+            if(minval==val1):
+                costDay[day]=costs[0]
+            elif(minval==val2):
+                costDay[day]=costs[1]
+            else:
+                costDay[day]=costs[2]
+            totalCost[day]=minval
+            lastDay=day
+        print("cost by day:",costDay)
+        print("total cost:",totalCost)
+        return(totalCost[-1])
