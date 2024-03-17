@@ -26,6 +26,7 @@
 #include<stdio.h>
 #include<stdint.h>
 #include<stdbool.h>
+#include<stdlib.h>
 
 /* Structure of the circular buffer */
 typedef struct circular_buffer_t
@@ -35,10 +36,10 @@ typedef struct circular_buffer_t
     int tail;
     int size;
     int max;
-};
+} circular_buffer_t;
 
 /* Initialize the circular buffer with an existing buffer */
-circular_buffer_t* circular_buffer_init(uint8_t *buffer, size_t size)
+circular_buffer_t* circular_buffer_init(size_t size)
 {
     if(size==0) return NULL;
     circular_buffer_t *CBUFFER = (circular_buffer_t*)malloc(sizeof(circular_buffer_t));
@@ -60,6 +61,8 @@ circular_buffer_t* circular_buffer_init2(size_t size)
     CBUFFER->tail = 0;
     CBUFFER->size = 0;
     CBUFFER->max = size;
+    for(int i=0;i<CBUFFER->max;i++)
+        CBUFFER->buffer[i]=0;
     return CBUFFER;
 }
 
@@ -82,3 +85,44 @@ int circular_buffer_put1(circular_buffer_t* cbuf, int value)
 }
 
 /* Get an element */
+int circular_buffer_get(circular_buffer_t* cbuf)
+{
+    if(cbuf->size==0)   return -1;
+    int value = cbuf->buffer[cbuf->tail];
+    cbuf->buffer[cbuf->tail]=0;
+    cbuf->tail = (cbuf->tail+1)%cbuf->max;
+    cbuf->size--;
+    return value;
+}
+
+/* Print contents of circular buffer */
+void circular_buffer_print(circular_buffer_t* cbuf)
+{
+    for(int i=0;i<cbuf->max;i++)
+        printf("%d ",cbuf->buffer[i]);
+    printf("\n");
+}
+
+int main(void)
+{
+    /* declare the circular buffer */
+    circular_buffer_t* CBUF;
+    /* Initialize the circular buffer */
+    CBUF = circular_buffer_init(10);
+    /* Fill some items */
+    for(int i=0;i<7;i++)
+        circular_buffer_put1(CBUF,i);
+    for(int i=0;i<5;i++)
+        printf("Value popped: %d \n",circular_buffer_get(CBUF));
+    /* print the buffer */
+    circular_buffer_print(CBUF);
+    /* Remove 5 elements */
+    /* Insert again */
+    for(int i=0;i<8;i++)
+        circular_buffer_put1(CBUF,i+10);
+    circular_buffer_print(CBUF);
+    for(int i=0;i<7;i++)
+        printf("Value popped: %d \n",circular_buffer_get(CBUF));
+    /* print the buffer */
+    circular_buffer_print(CBUF);
+}
