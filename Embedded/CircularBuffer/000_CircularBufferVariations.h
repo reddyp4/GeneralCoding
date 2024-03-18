@@ -5,9 +5,11 @@ File: 0001_simple_circ_buffer.c
 Simple circular buffer given the size, with variation for overwritting
 Single producer/single consumer
 
-*/
+0002_interruptsafe_circ_buffer.c
+Interrupt safe ring buffer
+1) volatile, 2) head changed in add first, 3) value is taken in remove first
 
-/* 
+
 One issue is how to know if it is empty or full
 Option1: Use an empty slot between head and tail
 Option2: Use a boolean flag 
