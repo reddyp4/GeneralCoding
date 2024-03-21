@@ -69,38 +69,54 @@ public:
         back1.push_back(val);
     }
     
-    int popFront() {
+    int popFront() 
+    {
         int value;
         if(front1.size()>0)
         {
             value = front1.front();
             front1.pop_front();
-            return value;
         }
         else if(back1.size()>0)
         {
             value = back1.back();
             back1.pop_back();
-            return value;
         }
         else
-            return -1;
+            value=-1;
+        return value;
     }
     
-    int popMiddle() {
+    int popMiddle() 
+    {
         int value;
-        if(front1.size()<back1.size())
+        if(back1.size()==0 && front1.size()==0) return -1;
+        if(back1.size()==0)
         {
+            if(front1.size()==0)    return -1;
+            value=front1.back();
+            front1.pop_back();
+        }
+        else if(front1.size()==0)
+        {
+            if(back1.size()==0)    return -1;
             value=back1.front();
             back1.pop_front();
-            return value;
         }
         else
         {
-            value=front1.back();
-            front1.pop_back();
-            return value;
+            if(front1.size()<back1.size())
+            {
+                value=back1.front();
+                back1.pop_front();
+            }
+            else
+            {
+                value=front1.back();
+                front1.pop_back();
+            }
         }
+        return value;
     }
     
     int popBack() {
@@ -109,16 +125,15 @@ public:
         {
             value=back1.back();
             back1.pop_back();
-            return value;
         }
         else if (front1.size()>0)
         {
             value=front1.back();
             front1.pop_back();
-            return value;
         }
         else
-            return -1;
+            value=-1;
+        return value;
     }
 };
 
