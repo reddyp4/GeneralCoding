@@ -9,14 +9,14 @@ int maxWeight1(vector<int> &weights, int maxCapacity)
 {
     int size1 = weights.size();
     int MAX_ITER = pow(2,size1);
-    int maxSum=0, currentSum;
+    int maxSum=0, currentSum, choice=0;
     for (int i=0;i<MAX_ITER;i++)
     {
         currentSum = 0;
         for(int j=0;j<size1;j++)
         {        
-            int choice = ((i&&(0x1<<j))>0);
-            cout<<"i:"<<i<<",j:"<<j<<",choice:"<<choice;
+            choice = !((i&(0x1<<j))==0);
+            //cout<<"i:"<<i<<",j:"<<j<<",choice:"<<choice<<endl;
             currentSum += (choice*weights[j]);
         }
         currentSum = (currentSum>maxCapacity)? 0: currentSum;
@@ -29,11 +29,11 @@ int maxWeight1(vector<int> &weights, int maxCapacity)
 int main()
 {
     //barbell weights
-    int size = 5;
-    std::vector<int> weights = {7,1}; //,5,6,2};
+    std::vector<int> weights = {1,5,4};
     //max capacity
     int maxCapacity = 7;
     //reach the maxm
-    cout << "Max weight achieved: " << maxWeight1(weights, maxCapacity) << endl;
+    int maxWeight = maxWeight1(weights, maxCapacity);
+    cout << "Max weight achieved: " <<  maxWeight << endl;
     return 0;
 }
