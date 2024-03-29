@@ -45,6 +45,7 @@ Constraints:
 class Solution:
     def maxSubarrayLength(self, nums: List[int], k: int) -> int:
         #Method1: For every element, make a dictionary and keep count check longest
+        '''
         left,right,longest,siz=0,0,0,len(nums)
         for i,elem in enumerate(nums):
             d,j,flag={},i,True
@@ -60,6 +61,38 @@ class Solution:
             longest=longest if (longest>(j-i)) else (j-i)
             #print("i:",i,",j:",j,"flag:",flag,"longest:",longest,"d:",d)
         return longest
+        '''
+        #Method2:Window as method1 for every element, change right changes until same value as left
+        #when at end, drop left and move right
+        left,right,siz,longest,d=0,0,len(nums),0,{}
+        while(right<siz):
+            if(nums[right] in d):
+                d[nums[right]]+=1
+                if(d[nums[right]]>k):
+                    #print("hit:d:",d)
+                    #reached end, now update to lefts.. update longest first
+                    longest=longest if (longest>(right-left)) else (right-left)
+                    #drop left until this particular value is reached
+                    while(nums[left]!=nums[right]):
+                        d[nums[left]]-=1
+                        left+=1
+                    #reached equality, drop this and continue
+                    d[nums[left]]-=1
+                    left+=1
+                    #print("limit1:left:",left,",right:",right)
+            else:
+                d[nums[right]]=1
+            #print("update:d",d)
+            right+=1
+        #reached end
+        longest = longest if (longest>(siz-left)) else (siz-left)
+        #print("left:",left,",right:",right,",d:",d)
+        return longest
 '''
 Simple solution, check at every element
+Fails for longer lists
+
+How about sliding window for longer intervals and move to next window?
+when hitting k, drop lefts until left==right value
+Beats 95% on time, 75% on space
 '''
