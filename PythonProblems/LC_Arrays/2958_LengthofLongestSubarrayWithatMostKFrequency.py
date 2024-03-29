@@ -45,21 +45,21 @@ Constraints:
 class Solution:
     def maxSubarrayLength(self, nums: List[int], k: int) -> int:
         #Method1: For every element, make a dictionary and keep count check longest
-        left,right,longest,siz=0,0,0,len(nums)-1
+        left,right,longest,siz=0,0,0,len(nums)
         for i,elem in enumerate(nums):
-            d,j={},i
+            d,j,flag={},i,True
             while(j<siz):
                 if(nums[j] in d):
                     d[nums[j]]+=1
                     if(d[nums[j]]>k):
+                        flag=False
                         break
                 else:
                     d[nums[j]]=1
                 j+=1
             longest=longest if (longest>(j-i)) else (j-i)
-            print("i:",i,"elem:",elem,"longest:",longest,"d:",d)
+            #print("i:",i,",j:",j,"flag:",flag,"longest:",longest,"d:",d)
         return longest
-
 '''
 Simple solution, check at every element
 '''
