@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (9-2020-q2-update)
+# Toolchain: GNU Tools for STM32 (12.3.rel1)
 ################################################################################
 
 -include ../makefile.init
@@ -33,34 +33,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := HAL_Project
+BUILD_ARTIFACT_NAME := CubeIDE_Project
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-HAL_Project.elf \
+CubeIDE_Project.elf \
+
+MAP_FILES += \
+CubeIDE_Project.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-HAL_Project.list \
-
-OBJCOPY_BIN += \
-HAL_Project.bin \
+CubeIDE_Project.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: HAL_Project.elf secondary-outputs
+main-build: CubeIDE_Project.elf secondary-outputs
 
 # Tool invocations
-HAL_Project.elf: $(OBJS) $(USER_OBJS) /Users/bhageerath/Documents/Firmware/reddyp4/Embedded/STM32G070/CubeIDE_Project/STM32G070RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "HAL_Project.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"/Users/bhageerath/Documents/Firmware/reddyp4/Embedded/STM32G070/CubeIDE_Project/STM32G070RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="HAL_Project.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+CubeIDE_Project.elf CubeIDE_Project.map: $(OBJS) $(USER_OBJS) /Users/bhageerath/Documents/Firmware/reddyp4/Embedded/STM32G070/CubeIDE_Project/STM32G070RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "CubeIDE_Project.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"/Users/bhageerath/Documents/Firmware/reddyp4/Embedded/STM32G070/CubeIDE_Project/STM32G070RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CubeIDE_Project.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -69,22 +69,17 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-HAL_Project.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "HAL_Project.list"
-	@echo 'Finished building: $@'
-	@echo ' '
-
-HAL_Project.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "HAL_Project.bin"
+CubeIDE_Project.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "CubeIDE_Project.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) HAL_Project.bin HAL_Project.elf HAL_Project.list default.size.stdout
+	-$(RM) CubeIDE_Project.elf CubeIDE_Project.list CubeIDE_Project.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
