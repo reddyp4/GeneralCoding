@@ -1,0 +1,17 @@
+11:33:18 **** Build of configuration Debug for project HAL_Project ****
+make -j9 all 
+arm-none-eabi-gcc -o "HAL_Project.elf" @"objects.list"   -mcpu=cortex-m0plus -T"/Users/bhageerath/Documents/Firmware/STM32/STM32G070/CubeIDE_Project/STM32G070RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="HAL_Project.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.macos64_1.0.200.202406191456/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld: warning: HAL_Project.elf has a LOAD segment with RWX permissions
+Finished building target: HAL_Project.elf
+ 
+arm-none-eabi-size  HAL_Project.elf 
+arm-none-eabi-objdump -h -S HAL_Project.elf  > "HAL_Project.list"
+   text	   data	    bss	    dec	    hex	filename
+    460	      8	   1568	   2036	    7f4	HAL_Project.elf
+Finished building: default.size.stdout
+ 
+Finished building: HAL_Project.list
+ 
+
+11:33:18 Build Finished. 0 errors, 1 warnings. (took 357ms)
+

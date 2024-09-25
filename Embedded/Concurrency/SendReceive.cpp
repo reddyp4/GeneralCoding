@@ -1,4 +1,0 @@
-/*
-Sender and receiver problem
-
-*/
