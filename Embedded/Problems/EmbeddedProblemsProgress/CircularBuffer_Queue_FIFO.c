@@ -2,7 +2,7 @@
 typedef struct circularBuffer
 {
     uint8_t *data;
-    uint8_t head,tail;
+    uint8_t head,tail,size;
 } circularBuffer;
 
 void push(circularBuffer* CB, uint8_t value)
@@ -10,7 +10,8 @@ void push(circularBuffer* CB, uint8_t value)
     if(CB->head==-1)
     {
         /* Empty Queue */
-        CB->data[++CB->head] = data;
+        CB->head = (CB->head+1)%(CB->size);
+        CB->data[] = data;
         CB->tail = 0;
         CB->head++;
     }
@@ -20,7 +21,8 @@ void push(circularBuffer* CB, uint8_t value)
     }
     else
     {
-        CB->data[CB->head++] = data;
+        CB->data[CB->head] = value;
+        CB->head = (CB->head+1)%(CB->size);
     }
 }
 
@@ -31,7 +33,8 @@ uint8_t pop(circularBuffer *CB, uint8_t *val)
         /*Empty Buffer */
         return 0;
     }
-    *val = CB->data[CB->tail++];
+    *val = CB->data[CB->tail];
+    CB->tail = (CB->tail+1)%(CB->size);
     if(CB->head==CB->tail)
     {
         /*Empty*/
