@@ -1,6 +1,7 @@
 /* Fixed size malloc implementation here */
 // Sources
 // https://github.com/subhashjadvani/algorithms/blob/main/c-language/pool_allocator/fast_efficient_fixed_size_memory_pool.cpp
+// https://embeddedartistry.com/blog/2017/02/15/implementing-malloc-first-fit-free-list/
 
 #include <stdio.h>
 #include <stlib.h>
