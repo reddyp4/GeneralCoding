@@ -8,21 +8,34 @@ Multiple p/c need a lock, from pthread, especially when writing/reading */
 
 /* Write in ISR, read in main */
 /* Shift to volatile for buffer, head and tail in global variables */
+#include <pthread.h>
+
 volatile char circ_buf[n] = {0};
 volatile size_t head_index = 0;
 volatile size_t tail_index = 0;
 
+volatile pthread_mutex_t *LOCK;
+pthread_mutexattr_t attr;
+
+void buffer_init()
+{
+    pthread_mutex_init(&LOCK, &attr);
+}
+
 void buffer_input(const char c)
 {
+    pthread_mutex_lock(&LOCK);
     if((head_index+ 1) % n != tail_index) {
         //Only if buffer is not full
         circ_buf[head_index] = c;
         head_index = (head_index + 1) % n;
     }
+    pthread_mutex_unlock(&LOCK);
 }
 
 char buffer_read(void)
 {
+    pthread_mutex_lock(&LOCK);
     if (tail_index != head_index)
     {
         char c = circ_buf[tail_index];
@@ -30,5 +43,6 @@ char buffer_read(void)
         return c;
     }
     //Lets assume 0 will never be content of the buffer for this example
+    pthread_mutex_unlock(&LOCK);
     return 0;
 }
