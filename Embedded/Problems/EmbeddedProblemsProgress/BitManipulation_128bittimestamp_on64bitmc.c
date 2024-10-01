@@ -3,6 +3,7 @@
 atomic variable that is incrementing on a timer 
 std::atomic -> 
 interrupted when rollover of lower value */
+
 /* This is like a single producer, multiple consumer problem */
 /* When consuimg, producer cannot modify */
 /* When producing, value is locked and inaccessible */
@@ -29,17 +30,25 @@ void update()
     /* Lock mutex with timer is updating, read not allowed */
     pthread_mutex_lock(&timeStamp.lock);
     atomic_fetch_add(low,1);
-    if(timeStamp.low==0)    atomic_fetch_add(timeStamp.high);
+    /* check if high is ready to be changed */
+    if(timeStamp.low==0)    pthread_cond_wait(&timeStamp.lock,&timeStamp.cv);
+    atomic_fetch_add(timeStamp.high);
+    pthread_cond_signal(&timeStamp.lock,&timeStamp.cv);
     pthread_mutex_unlock(&timeStamp.lock);
     /* Unlock mutex once write is done */
 }
 
 /* Function can be called from anywhere */
+/* Simple case: just read */
+/* One issue: if interrupted and value changes in between */
 void getTime(uint64_t* val)
 {
-    while(pthread_mutex_trylock())
+    *val=timeStamp.low;
+    /* Lock mutex with timer is updating, read not allowed */
     pthread_mutex_lock(&timeStamp.lock);
-    *val=timeStamp.high;
+    /* check if overflow condition */
+    if(timeStamp.low==0)    pthread_cond_wait(&timeStamp.lock,&timeStamp.cv);
     *(val+1)=timeStamp.high;
+    pthread_cond_signal(&timeStamp.lock,&timeStamp.cv);
     pthread_mutex_unlock(&timeStamp.lock);
 }
