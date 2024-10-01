@@ -14,8 +14,9 @@ volatile char circ_buf[n] = {0};
 volatile size_t head_index = 0;
 volatile size_t tail_index = 0;
 
-volatile pthread_mutex_t *LOCK;
+volatile pthread_mutex_t LOCK;
 pthread_mutexattr_t attr;
+pthread_cond_t *CV;
 
 void buffer_init()
 {
@@ -24,25 +25,33 @@ void buffer_init()
 
 void buffer_input(const char c)
 {
-    pthread_mutex_lock(&LOCK);
-    if((head_index+ 1) % n != tail_index) {
-        //Only if buffer is not full
-        circ_buf[head_index] = c;
-        head_index = (head_index + 1) % n;
+    pthread_mutex_lock(LOCK);
+    if((head_index+ 1) % n == tail_index)
+    {
+        //Buffer is full
+        pthread_cond_wait(LOCK,CV);
+        /* COND_WAIT: 1) unlock mut, 2) sleep, 3) lock mut*/
     }
+    /* If you are here, mutex is on, cv is done, ready to wrte*/
+    //Only if buffer is not full
+    circ_buf[head_index] = c;
+    head_index = (head_index + 1) % n;
+    pthread_cond_signal(CV);
     pthread_mutex_unlock(&LOCK);
 }
 
 char buffer_read(void)
 {
-    pthread_mutex_lock(&LOCK);
-    if (tail_index != head_index)
+    pthread_mutex_lock(LOCK);
+    if (tail_index == head_index)
     {
-        char c = circ_buf[tail_index];
-        tail_index = (tail_index + 1) % n;
-        return c;
+        /* buffer is empty, wait until available */
+        pthread_cond_wait(LOCK,CV);
+        /* COND_WAIT: 1) unlock mut, 2) sleep, 3) lock mut*/
     }
+    char c = circ_buf[tail_index];
+    tail_index = (tail_index + 1) % n;
     //Lets assume 0 will never be content of the buffer for this example
-    pthread_mutex_unlock(&LOCK);
-    return 0;
+    pthread_mutex_unlock(LOCK);
+    return c;
 }
