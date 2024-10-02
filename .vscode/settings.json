@@ -70,6 +70,7 @@
         "functional": "cpp",
         "iterator": "cpp",
         "utility": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "Debug_computerSquareADC.C": "cpp"
     }
 }
