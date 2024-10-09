@@ -4,7 +4,7 @@
 // https://embeddedartistry.com/blog/2017/02/15/implementing-malloc-first-fit-free-list/
 
 #include <stdio.h>
-#include <stlib.h>
+#include <stdlib.h>
 #include <stdint.h>
 
 /* block structure */
