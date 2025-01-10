@@ -72,5 +72,6 @@
         "utility": "cpp",
         "valarray": "cpp",
         "Debug_computerSquareADC.C": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "D:/Work/github/GeneralCoding/Embedded/ICoding/OneX"
 }
