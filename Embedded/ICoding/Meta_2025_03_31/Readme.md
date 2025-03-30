@@ -1,6 +1,7 @@
 Problems:
 Concurrency: 
   >LC1114: Printing 1,2,3: https://leetcode.com/problems/print-in-order/description/
+  >LC1195: Fizz Buzz: https://leetcode.com/problems/fizz-buzz-multithreaded/description/ 
 Bit Manipulation: 
 Linked List: 
 Stacks: 
