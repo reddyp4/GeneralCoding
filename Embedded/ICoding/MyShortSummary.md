@@ -1,0 +1,4 @@
+- PhD with electrical systems, controls, embedded systems
+- 3+ yr management experience of embedded, controls and working closely with hardware, product and overseas teams
+- Internal device (microcontroller and FPGA) development along with external vendor integration (STM, TI, Lattice)
+- Tech stack: zigbee, wifi, along with blue-tooth, spi, ethernet etc. 
