@@ -94,3 +94,12 @@ int numberOfAlternatingGroups(int* colors, int colorsSize, int k) {
     }
     return count;
 }
+
+/*
+Runtime: 83ms
+Beats 60.46%
+
+Memory: 15.56MB
+Beats 77.63%
+
+*/
