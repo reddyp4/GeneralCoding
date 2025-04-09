@@ -4,6 +4,8 @@ Concurrency:
   >LC1195: Fizz Buzz: https://leetcode.com/problems/fizz-buzz-multithreaded/description/ 
 Bit Manipulation: 
 Linked List: 
+  > LC146: LRUCache: https://leetcode.com/problems/lru-cache/description/
+  
 Stacks: 
 Queues: 
 Trees: 
