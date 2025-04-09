@@ -61,7 +61,7 @@ LRUCache* lRUCacheCreate(int capacity) {
 }
 
 int lRUCacheGet(LRUCache* obj, int key) {
-    
+    return LRUCache[]
 }
 
 void lRUCachePut(LRUCache* obj, int key, int value) {

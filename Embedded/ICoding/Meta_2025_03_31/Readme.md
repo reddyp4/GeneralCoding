@@ -1,3 +1,10 @@
+Language C++:
+Why? Searches, maps easier with STL
+What? 
+
+c++ STL:
+
+
 Problems:
 Concurrency: 
   >LC1114: Printing 1,2,3: https://leetcode.com/problems/print-in-order/description/
