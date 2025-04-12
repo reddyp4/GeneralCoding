@@ -64,3 +64,5 @@ people.clear() = all
 people.size()
 is empty? people.empty()
 for(auto key:people){key.first;key.second}
+
+strings
