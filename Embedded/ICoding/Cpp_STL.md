@@ -66,3 +66,9 @@ is empty? people.empty()
 for(auto key:people){key.first;key.second}
 
 strings
+
+arrays
+int names[4];
+int names[4]={0,1,2,3};
+cout<<names[0]<<sizeof(names)/sizeof(names[0])
+int *arr = new int[n]
