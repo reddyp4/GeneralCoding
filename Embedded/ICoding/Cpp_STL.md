@@ -17,6 +17,8 @@ names.push_back("name3")
 names.pop_back(); //remove last
 names.size();names.empty()
 for(string name: names){cout<<name}
+sorting vector: sort(vector.begin(),vector.end())
+sort(arr1.begin(),arr1.begin()+2); = sort between indices 0,2 (2 not included)
 
 List: similar to vector.
 list optimized for beginning/end vs vectors-@end only and not a random access
@@ -66,6 +68,7 @@ is empty? people.empty()
 for(auto key:people){key.first;key.second}
 
 strings
+convert number to string: string number = to_string(n);
 
 arrays
 int names[4];
