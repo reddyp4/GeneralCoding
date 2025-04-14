@@ -75,3 +75,9 @@ int names[4];
 int names[4]={0,1,2,3};
 cout<<names[0]<<sizeof(names)/sizeof(names[0])
 int *arr = new int[n]
+
+mutex
+
+
+conditional variable 
+
