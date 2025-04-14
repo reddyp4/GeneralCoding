@@ -1,4 +1,7 @@
-- PhD with electrical systems, controls, embedded systems
-- 3+ yr management experience of embedded, controls and working closely with hardware, product and overseas teams
-- Internal device (microcontroller and FPGA) development along with external vendor integration (STM, TI, Lattice)
-- Tech stack: zigbee, wifi, along with blue-tooth, spi, ethernet etc. 
+- introduced innovation and grew into two product lines with 300MM and 100MM revenue 
+- grew technical teams from scratch, hand-off into production 
+- 3+ yr management experience leading embedded (firmware), controls, testing and working closely with hardware, product and overseas teams
+- built scalable testing methodlogies for automated testing in the millions, allowing for reliable release
+- internal device (microcontroller and FPGA) development along with external vendor integration (stm, nordic, arm-cortex m0/m4, nxp, ti, lattice fpga)
+- tech stack: zigbee, wifi, along with blue-tooth, spi, i2c, uart ethernet etc. 
+- phd with electrical systems, controls, embedded systems

@@ -41,13 +41,13 @@ void printArray(vector<int> nums)
 
 int printStack(stack<int> stack1)
 {
-    //cout << "Stack: Size: " << stack1.size() << ":";
+    cout << "Stack: Size: " << stack1.size() << ":";
     for(int i=0;i<=stack1.size();i++)
     {
-        //cout<< stack1.top() << " ";
+        cout<< stack1.top() << " ";
         stack1.pop();
     }
-    //cout << endl;
+    cout << endl;
     return 1;
 }
 
@@ -62,20 +62,21 @@ vector<int> nextGreaterElement(vector<int> nums)
     printStack(myStk);
     for(int i=1;i<nums.size();i++)
     {
-        //cout<< "New Iteration" << endl;
+        cout<< "New Iteration" << endl;
         printStack(myStk);
+        cout << "Stack top:" << myStk.top()<<":Element"<<nums[i]<<endl;
         if(myStk.empty())
         {
             myStk.push(nums[i]);
             myIndex.push(i);
-            //cout<< "Stack is empty! New stack now-";
-            //printStack(myStk);
+            cout<< "Stack is empty! New stack now-";
+            printStack(myStk);
             continue;
         }
-        //cout << "Stack top:" << myStk.top()<<":Element"<<nums[i]<<endl;
+        cout << "Stack top:" << myStk.top()<<":Element"<<nums[i]<<endl;
         while(!myStk.empty() && printStack(myStk) && myStk.top()<nums[i])
         {
-            //cout << "Index:" << i << "Element:" << myStk.top() << " --> " << nums[i] << endl;
+            cout << "Index:" << i << "Element:" << myStk.top() << " --> " << nums[i] << endl;
             result[myIndex.top()] = nums[i];
             myStk.pop();
             myIndex.pop();
@@ -96,14 +97,14 @@ vector<int> nextGreaterElement(vector<int> nums)
 int main(void)
 {
     vector<int> arr;
-#if 1
+#if 0
     arr.push_back(1);
     arr.push_back(3);
     arr.push_back(2);
     arr.push_back(4);
 #endif
 
-#if 0
+#if 1
     arr.push_back(11);
     arr.push_back(9);
     arr.push_back(13);
