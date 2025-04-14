@@ -77,7 +77,18 @@ cout<<names[0]<<sizeof(names)/sizeof(names[0])
 int *arr = new int[n]
 
 mutex
+pthread_mutex_t m;
+pthread_mutex_init(&m)
+pthread_mutex_lock(&m)
+pthread_mutex_unlock(&m)
 
+conditional variable: tied to a mutex
+pthread_cond_t cv
+pthread_cond_init(&cv,&m)
+pthread_cond_wait(&cv,&m)
+pthread_cond_broadcast(&cv,&m)
 
-conditional variable 
-
+concurrency:
+thread1: get lock, while loop on variable, sit on cond-var, once exits, do process, 
+    broadcast cond-var, unlock
+thread2: same, except while loop on different value of variable
