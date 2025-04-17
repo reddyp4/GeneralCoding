@@ -72,6 +72,7 @@ people.clear() = all
 people.size()
 is empty? people.empty()
 for(auto key:people){key.first;key.second}
+map.find(key) returns ptr to key
 
 strings
 convert number to string: string number = to_string(n);
