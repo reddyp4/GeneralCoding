@@ -19,6 +19,10 @@ names.size();names.empty()
 for(string name: names){cout<<name}
 sorting vector: sort(vector.begin(),vector.end())
 sort(arr1.begin(),arr1.begin()+2); = sort between indices 0,2 (2 not included)
+sorting vector of vectors: vector<vector<int>> intervals
+sort(intervals.begin(),intervals.begin()+intervals.size())
+
+
 
 List: similar to vector.
 list optimized for beginning/end vs vectors-@end only and not a random access
