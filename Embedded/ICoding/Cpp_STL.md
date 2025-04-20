@@ -21,7 +21,7 @@ sorting vector: sort(vector.begin(),vector.end())
 sort(arr1.begin(),arr1.begin()+2); = sort between indices 0,2 (2 not included)
 sorting vector of vectors: vector<vector<int>> intervals
 sort(intervals.begin(),intervals.begin()+intervals.size())
-
+sort by x[0]: intervals.sort(key=lambda x: x[0])
 
 
 List: similar to vector.
