@@ -80,6 +80,9 @@ map.find(key) returns ptr to key
 
 strings
 convert number to string: string number = to_string(n);
+example:
+convert to upper:
+check lower: tolower()
 
 arrays
 int names[4];
