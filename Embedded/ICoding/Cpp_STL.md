@@ -68,15 +68,18 @@ names.erase("name1") >> removes "name1"
 
 map: map<key,value> and unique, sorted
 #include<map>
-map<string,int> people={{"name1",1},{"name2",3}}
-cout<<people["name1"] or people.at("name1")
-people["name3"]=5 or people.insert({"name3",5})
-people.erase("name1")
-people.clear() = all
-people.size()
-is empty? people.empty()
-for(auto key:people){key.first;key.second}
-map.find(key) returns ptr to key
+Declare: map<string,int> people={{"name1",1},{"name2",3}}
+Insert: people.insert({"name3",3})
+Access elements: people["name3"]=5 OR people.at("name1")
+Update elements: people["name3"]=10 OR people.at("name1")=10
+Finding elements: for(auto key:people){key.first;key.second}
+    OR 
+    auto itmap.find(key); 
+    if(it!=people.end()) cout<<"not found"<<endl;
+Remove elements: people.erase("name1")
+Remove all: people.clear() = all
+Get size: people.size()
+Check empty: is empty? people.empty()
 
 strings
 convert number to string: string number = to_string(n);
