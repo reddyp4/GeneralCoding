@@ -40,7 +40,7 @@ Could you devise a constant space solution?
 /*
 Method: Check each element and set map to zero, iterate later
     Needs maps, and searching maps
-Constant space approach? 
+Constant space approach: If zero, set it to 2, and later iterate the matrix and turn all 2's to zeroes
 */
 
 class Solution {
