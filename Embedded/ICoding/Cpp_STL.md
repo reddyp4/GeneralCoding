@@ -11,6 +11,7 @@ Vector:
 #include <vector>
 Declare: vector<string> names = {"name1","name2"};
 Declare fixed size: vector<int> names(5,9);     //five elements default value of 9
+
 names[0];names.at(0)
 names.front(); names.back()
 names[1]="name1"
