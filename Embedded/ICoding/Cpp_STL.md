@@ -44,8 +44,13 @@ cout<<names.top()<<names.size()
 
 Queue: FIFO
 #include<queue>
-queue<string> names;
-names.push("name3");names.pop();
+Create: queue<string> names={"name1","name2"};
+Add: names.push("name3");
+Access: names.front() and names.back()
+Change front and back: names.front()="name4", names.back()="name5"
+Remove: names.pop();
+Get size: names.size()
+Empty: names.empty()
 
 Deque: 
 deque<string> names = {"name1","name2"}
