@@ -18,6 +18,7 @@ class PhoneDirectory{
         int len;
         PhoneDirectory(int Numbers):phone(Numbers) {len=Numbers;}
 }
+Addng to end
 
 names[0];names.at(0)
 names.front(); names.back()
