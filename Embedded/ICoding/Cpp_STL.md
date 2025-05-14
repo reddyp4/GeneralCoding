@@ -11,6 +11,13 @@ Vector:
 #include <vector>
 Declare: vector<string> names = {"name1","name2"};
 Declare fixed size: vector<int> names(5,9);     //five elements default value of 9
+Define at different time as declare:
+class PhoneDirectory{
+    public: 
+        vector<int> phone;
+        int len;
+        PhoneDirectory(int Numbers):phone(Numbers) {len=Numbers;}
+}
 
 names[0];names.at(0)
 names.front(); names.back()
