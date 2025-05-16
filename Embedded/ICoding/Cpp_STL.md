@@ -19,6 +19,7 @@ class PhoneDirectory{
         PhoneDirectory(int Numbers):phone(Numbers) {len=Numbers;}
 }
 Addng to end
+Get max: 
 
 names[0];names.at(0)
 names.front(); names.back()
@@ -61,12 +62,14 @@ Get size: names.size()
 Empty: names.empty()
 
 Deque: 
-deque<string> names = {"name1","name2"}
-for(string name:names){cout<<name;}
-name[0],name[1]
-name.front();name.back();name.at(6);
-name.push_back("name3");name.push_front("name0");
-name.pop_front();name.pop_back();
+Create: deque<string> names = {"name1","name2"}
+Create: for(string name:names){cout<<name;}
+Access front or back: name.front();name.back();
+Access a particular element: name.at(6);name[0],name[1]
+Push from or back: name.push_back("name3");name.push_front("name0");
+Clear all deque: name.clear()
+Remove one element: name.pop_back() or name.pop_front()
+Check if empty: name.empty()
 
 Set: unique elements only
 #include<set>
