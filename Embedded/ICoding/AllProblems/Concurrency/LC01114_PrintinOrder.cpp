@@ -106,3 +106,39 @@ Runtime 7ms Beats 49.41%
 Analyze Complexity
 Memory 9.51MB Beats 48.79%
 */
+
+/* TWO SEMAPHORE SOLUTION */
+#include<semaphore.h>
+
+class Foo {
+private:
+    sem_t FIRSTDONE,SECONDONE;
+public:
+    Foo() {
+        sem_init(&FIRSTDONE,0,0);
+        sem_init(&SECONDONE,0,0);
+    }
+
+    void first(function<void()> printFirst) {
+        // printFirst() outputs "first". Do not change or remove this line.
+        printFirst();
+        //post first done
+        sem_post(&FIRSTDONE);
+    }
+
+    void second(function<void()> printSecond) {
+        //Wait to get first done
+        sem_wait(&FIRSTDONE);
+        // printSecond() outputs "second". Do not change or remove this line.
+        printSecond();
+        //post second done
+        sem_post(&SECONDONE);
+    }
+
+    void third(function<void()> printThird) {
+        //Wait to get first done
+        sem_wait(&SECONDONE);
+        // printThird() outputs "third". Do not change or remove this line.
+        printThird();
+    }
+};
