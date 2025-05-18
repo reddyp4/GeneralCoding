@@ -114,15 +114,21 @@ int *arr = new int[n]
 CONCURRENCY:
 mutex
 pthread_mutex_t m;
-pthread_mutex_init(&m)
+pthread_mutex_init(&m,NULL)
 pthread_mutex_lock(&m)
 pthread_mutex_unlock(&m)
 
 conditional variable: tied to a mutex
 pthread_cond_t cv
-pthread_cond_init(&cv,&m)
+pthread_cond_init(&cv,NULL)
 pthread_cond_wait(&cv,&m)
 pthread_cond_broadcast(&cv,&m)
+
+include<semaphore.h>
+sem_t sm;
+sem_init(&sm,0,0)
+sem_wait(&sm)
+sem_post(&sm)
 
 thread1: get lock, while loop on variable, sit on cond-var, once exits, do process, 
     broadcast cond-var, unlock
