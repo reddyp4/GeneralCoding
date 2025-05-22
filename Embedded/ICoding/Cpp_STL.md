@@ -91,9 +91,12 @@ Insert: people.insert({"name3",3})
 Access elements: people["name3"]=5 OR people.at("name1")
 Update elements: people["name3"]=10 OR people.at("name1")=10
 Finding elements: for(auto key:people){key.first;key.second}
-    OR 
     auto itmap.find(key); 
     if(it!=people.end()) cout<<"not found"<<endl;
+Finding if key O(1) is present: 
+    if(people.count(key)>0)   .count returns 1 if present, else 0
+    OR 
+    if(people.find(key)!=people.end())  .find returns iterator to element, if not .end()
 Remove elements: people.erase("name1")
 Remove all: people.clear() = all
 Get size: people.size()
