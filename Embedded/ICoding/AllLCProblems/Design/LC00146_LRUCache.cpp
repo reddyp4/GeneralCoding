@@ -71,46 +71,95 @@ LRU: option1: huge array with all keys pre-assigned to -1, no need to search for
 
 
 */
+/* dll=doubly linked list, in C++ = std::list
+get:
+    if element in hash-map, 
+        read value
+        remove key location in dll and put in front
+        for easy access, can use another hash-map for location
+        return value
+    else return -1
+put:    similar to get, except when hitting the limit
+    if element in hash-map
+        update value
+        remove key location in dll (list), put in front
+        for easy access, can use another hash-map for location
+        return
+    else
+        if(full)
+            remove lru=last element in dll(list), remove in location hash and cache
+            update length
+        add in cache hashmap
+        insert in front of list
+        add location of front of list
+*/
+
+//make a node for LRU cache first
+struct Node {
+    int key,value;
+    Node *prev, *next;
+    //assign class of structure
+    Node(int key,int val): key(key), value(val),next(nullptr),prev(nullptr) {}
+};
+
 class LRUCache {
 public:
-    map<int,int> myCache;   //map<key,value>
-    queue<int> myQ; //Q of keys
-    int len,cap;
+    int cap;
+    //Cache
+    map<int,Node*> myCache;     //Note Cache is not key-value but key-Node
+    //Declare head/tail
+    Node* head = new Node(-1,-1);
+    Node* tail = new Node(-1,-1);
+
     LRUCache(int capacity) {
-        len=0;
         cap=capacity;
+        head->next=tail;
+        tail->prev=head;
     }
     
+    //add node at tail, tail is most recently used
+    void insert(Node *node)
+    {
+        Node *last=tail->prev;
+        last->next=node;
+        node->next=tail;
+        tail->prev=node;
+        node->prev=last;
+    }
+
+    void remove(Node *node)
+    {
+        (node->prev)->next=node->next;
+        (node->next)->prev=node->prev;
+    }
+
     int get(int key) {
-        //search for key - if map, search using count O(1)
-        if(myCache.count(key)==1)
-        {
-            myQ.push(key);
-            myQ.pop();
-            int val = myCache[key];
-            return val;
-        }
-        return -1;
+        //if key not in hashmap, return -1
+        if(myCache.find(key)==myCache.end())    return -1;
+        //find key in linked list, remove the node and push to start
+        Node *node = myCache[key];
+        remove(node);   //removes node
+        insert(node);   //add node at head
+        return node->value;
     }
     
     void put(int key, int value) {
-        //search for key - if map search O(n)
-        if(myCache.count(key)==1)
+        if(myCache.find(key)!=myCache.end())
         {
-            myQ.push(key);
-            myQ.pop();
-            myCache[key]=value;
+            //element already present
+            Node *node=myCache[key];
+            remove(node);   //to be later added in front
         }
-        else
+        Node *newNode = new Node(key,value);
+        myCache[key]=newNode;
+        insert(newNode);    //addes to front
+        //check overfill
+        if(myCache.size()>cap)
         {
-            if(len==cap)
-            {
-                myCache.erase(myQ.front());
-                myQ.pop();len--;
-            }
-            myCache[key]=value;
-            myQ.push(key);
-            len++;
+            //remove lru = node before tail
+            Node *temp = head->next;
+            remove(temp);
+            myCache.erase(temp->key);
         }
     }
 };

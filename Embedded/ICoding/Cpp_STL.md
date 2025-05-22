@@ -70,6 +70,7 @@ Push from or back: name.push_back("name3");name.push_front("name0");
 Clear all deque: name.clear()
 Remove one element: name.pop_back() or name.pop_front()
 Check if empty: name.empty()
+Iterator to an index: names.begin()+i
 
 Set: unique elements only
 #include<set>
