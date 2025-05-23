@@ -109,11 +109,21 @@ example:
 convert to upper:
 check lower: tolower()
 
+
 arrays
 int names[4];
 int names[4]={0,1,2,3}; 
 cout<<names[0]<<sizeof(names)/sizeof(names[0])
 int *arr = new int[n]
+
+STRUCTURES:
+struct Node {
+    int key,value;
+    Node *prev, *next;
+    //assign class of structure
+    Node(int key,int val): key(key), value(val),next(nullptr),prev(nullptr) {}
+};
+Call: Node* head = new Node(-1,-1);
 
 CONCURRENCY:
 mutex
