@@ -103,6 +103,25 @@ Remove all: people.clear() = all
 Get size: people.size()
 Check empty: is empty? people.empty()
 
+SPARSE MATRIX: Using hash_map of hash_maps, can store non-zerp elements
+unordered_map<int,unordered_map<int,double>> sparseMatrix
+              row               column
+sparseMatrix[0][2]=5.0;
+//Accessing a zero element, if not create an entry
+if(sparseMatrix.find(2)!=sparseMatrix.end() && sparseMatrix(2).find(3)!=sparseMatrix(2).end())
+    cout<<"Element at 2,3"<<sparseMatrix[2][3];
+else
+    cout<<"No element"<<endl;
+//Iterate non-zero elements
+for(const auto& rowPointer:sparseMatrix) {
+    row=rowPointer.first;
+    for(const auto& colPointer:(rowPair.second)){
+        col=sparseMatrix(row).first;
+        val=sparseMatrix(row).second;
+    }
+}
+
+
 strings
 convert number to string: string number = to_string(n);
 example:
