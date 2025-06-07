@@ -20,6 +20,7 @@ class PhoneDirectory{
 }
 Addng to end
 Get max: 
+Sum: accumulate(names.begin(),names.end(),0)
 
 names[0];names.at(0)
 names.front(); names.back()
