@@ -139,6 +139,7 @@ convert number to string: string number = to_string(n);
 example:
 convert to upper:
 check lower: tolower()
+sub-string: 
 
 
 arrays
