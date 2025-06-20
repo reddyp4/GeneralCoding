@@ -79,12 +79,14 @@ set<string> names={"name1","name2"}
 names.insert("name3");names.insert("name1");
 names.erase("name1")
 names.size()
+check if in set: 
 
 unordered_set: no order within set
 #include<unordered_set>
 unordered_set<string> names={"name1","name2"}
 names.insert("name1") doesnt do anything
 names.erase("name1") >> removes "name1"
+check if in set: 
 
 map: map<key,value> and unique, sorted
 #include<map>

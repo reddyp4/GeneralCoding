@@ -39,7 +39,7 @@ All the strings of wordDict are unique.
 /*
 Store dict in hashmap, check left-right ptrs
 */
-
+/* DOES NOT WORK
 class Solution {
 public:
     bool wordBreak(string s, vector<string>& wordDict) {
@@ -64,5 +64,48 @@ public:
             subslen=1;
         }
         return found;
+    }
+};*/
+
+/* 
+Method1: Just search, fails. 
+Method2: Variation of Method1. Instead of two pointers, do it for each element of left
+ */
+
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        /*  Step1: Build set
+            Step2: Queue of seen spots
+        */
+        //Step1: Build set
+        unordered_set<string> mySet(wordDict.begin(),wordDict.end());
+        //Step2: Queue
+        queue<int> queue;queue.push(0); //index0
+        //Step3: Vector of all false as start
+        vector<bool> seen(s.length(),false);
+
+        while(!queue.empty())
+        {
+            int start = queue.front();queue.pop();
+            //cout<<"start:"<<start<<endl;
+
+            if(start==s.length())   return true;    //reached end
+
+            for(int end=start+1;end<=s.length();end++)
+            {
+                //cout<<"end:"<<end;
+                if(seen[end])   continue;   //this index already seen move on
+                
+                //cout<<",substr:"<<s.substr(start,end-start)<<";"<<endl;
+                if(mySet.find(s.substr(start,end-start)) != mySet.end() )
+                {
+                    //cout<<"pushing:"<<end<<endl;
+                    queue.push(end);
+                    seen[end]=true;
+                }
+            }
+        }
+        return false;
     }
 };
