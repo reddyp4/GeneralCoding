@@ -55,6 +55,7 @@ cout<<names.top()<<names.size()
 Queue: FIFO
 #include<queue>
 Create: queue<string> names={"name1","name2"};
+Initialize with defaul values: Cannot be done
 Add: names.push("name3");
 Access: names.front() and names.back()
 Change front and back: names.front()="name4", names.back()="name5"
