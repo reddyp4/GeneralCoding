@@ -21,6 +21,8 @@ class PhoneDirectory{
 Addng to end
 Get max: 
 Sum: accumulate(names.begin(),names.end(),0)
+Create matrix: vector<vector<int>> myMatrix;
+    Access myMatrix[i][j]
 
 names[0];names.at(0)
 names.front(); names.back()
@@ -35,6 +37,7 @@ sorting vector of vectors: vector<vector<int>> intervals
 sort(intervals.begin(),intervals.begin()+intervals.size())
 sort by x[0]: intervals.sort(key=lambda x: x[0])
 accessing elements in intervals: intervals[i][0] .. intervals[i][1]
+No pop_front: instead intervals.erase(intervals.begin())
 
 List: similar to vector.
 list optimized for beginning/end vs vectors-@end only and not a random access
