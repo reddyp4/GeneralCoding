@@ -7,6 +7,9 @@ Deque: Double ended Queue, LIFO+FIFO
 Set: Unique elements
 Map: Key-value pairs
 
+Char:
+check digit: isdigit()
+
 Vector:
 #include <vector>
 Declare: vector<string> names = {"name1","name2"};
