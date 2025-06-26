@@ -40,6 +40,18 @@ Stack with monotonic rising for repeated characters, others just add
 
 */
 
+/* 
+Stack with monotonic rising for repeated characters, others just add
+> build, vector of lists to add positions of each char: ex: a->1,2; b->0,3 ...
+> For every character: keep track of elem in stk, and full list
+ > if stk is empty, add char, update seen, reduce list
+ > else if already in stack (seen) already, move
+ > else if newchar>stk.top, add, reduce list
+ > else if newchar<stk.top, pop if this top is in rest of string (or list>0)
+   > add char, update see, reduce list
+
+*/
+
 class Solution {
 public:
     string smallestSubsequence(string s) {
@@ -60,7 +72,11 @@ public:
                 myStkSeen[s[i]-'a']=1;
             }
             //if element in stack, move on
-            else if(myStkSeen[s[i]-'a']==1) {}
+            else if(myStkSeen[s[i]-'a']==1) 
+            {
+                if(print)  cout<<",seen:"<<s[i];
+                myOccur[s[i]-'a'].pop_front();
+            }
             //if char>top and occurs again move, and update the list
             else if(s[i]>myStk.top())
             {
@@ -73,10 +89,10 @@ public:
             else
             {
                 if(print)   cout<<",higher";
-                while(!myStk.empty() && s[i]<myStk.top() && myOccur[myStk.top()-'a'].size()>0)
+                while(!myStk.empty() && s[i]<myStk.top() && !myOccur[myStk.top()-'a'].empty())
                 {
-                    if(print)   cout<<",pop:"<<myStk.top();
-                    myOccur[myStk.top()-'a'].pop_front();  //remove old occurence
+                    if(print)   cout<<",pop:"<<myStk.top()<<",Empty?"<<myOccur[myStk.top()-'a'].empty();
+                    //myOccur[myStk.top()-'a'].pop_front();  //remove old occurence
                     myStkSeen[myStk.top()-'a']=0;
                     myStk.pop();
                 }
@@ -86,6 +102,7 @@ public:
                 myOccur[s[i]-'a'].pop_front();
                 //cout<<",newsize:"<<myOccur[s[i]-'a'].size()<<endl;
                 myStk.push(s[i]);
+                myStkSeen[s[i]-'a']=1;
             }
             if(print)   cout<<",newsize:"<<myOccur[s[i]-'a'].size()<<endl;
             //if char>top and no more occurence of char, add char
@@ -100,3 +117,17 @@ public:
         return result;
     }
 };
+
+/*
+Runtime
+1
+ms
+Beats
+25.03%
+Analyze Complexity
+Memory
+10.41
+MB
+Beats
+8.06%
+*/
