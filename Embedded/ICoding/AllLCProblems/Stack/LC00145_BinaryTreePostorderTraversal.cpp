@@ -64,12 +64,32 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
  */
 class Solution {
 public:
+    vector<int> vec;
+    map<TreeNode*,bool> seen;
+    void postorder(TreeNode* root)  {
+        if(root->left!=NULL && !seen[root->left])   postorder(root->left);
+        if(root->right!=NULL && !seen[root->right])   postorder(root->right);
+        seen[root]=true;
+        vec.push_back(root->val);
+    }
+
     vector<int> postorderTraversal(TreeNode* root) {
         if(root==NULL)  return vec;
+        postorder(root);
         return vec;
     }
 };
 
 /*
-
+Runtime
+0
+ms
+Beats
+100.00%
+Analyze Complexity
+Memory
+11.74
+MB
+Beats
+8.07%
 */
