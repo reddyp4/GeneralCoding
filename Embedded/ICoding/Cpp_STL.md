@@ -112,6 +112,19 @@ Remove elements: people.erase("name1")
 Remove all: people.clear() = all
 Get size: people.size()
 Check empty: is empty? people.empty()
+Sorting map by value: Idea is to use sort on pairs, with function that returns a check
+ 1) Make a vector of pair<int,string>
+ 2) sorting decider: a.second<b.second for ascending, reverse for descending
+ 3) Sort vector of pairs
+Ex: Sorting map<int,string> myMap
+    vector<pair<int,string>> vec;
+    //add all keys
+    for(auto &key:myMap) vec.push_back(key);
+    sort(
+        vec.begin(),vec.end(),[] ...
+        (pair<int,string>&a, pair<int,string>&b)
+            {(return a.second<b.second;)}
+        )
 
 SPARSE MATRIX: Using hash_map of hash_maps, can store non-zero elements
 1) unordered_map<pair<int,int>,int> sparseMatrix
