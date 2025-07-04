@@ -116,7 +116,7 @@ Sorting map by value: Idea is to use sort on pairs, with function that returns a
  1) Make a vector of pair<int,string>
  2) sorting decider: a.second<b.second for ascending, reverse for descending
  3) Sort vector of pairs
-Ex: Sorting map<int,string> myMap
+ Ex: Sorting map<int,string> myMap
     vector<pair<int,string>> vec;
     //add all keys
     for(auto &key:myMap) vec.push_back(key);
