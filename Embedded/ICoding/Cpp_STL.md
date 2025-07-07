@@ -125,6 +125,21 @@ Sorting map by value: Idea is to use sort on pairs, with function that returns a
         (pair<int,string>&a, pair<int,string>&b)
             {(return a.second<b.second;)}
         )
+    OR Sorting using special function
+class Solution {
+public:
+    static bool comp(pair<string,int>&a,pair<string,int>&b)    {
+        if(a.second!=b.second) return a.second>b.second;
+        return a.first<b.first;
+    }
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        ...
+        map<string,int> occur;
+        /* Map occurence map */ for(i=0;i<words.size();i++) occur[words[i]]++;
+        /* Make vector of pairs */  vector<pair<string,int>> vec;
+        for(auto &key:occur)    vec.push_back(key);
+        /* Sort vector of pairs */
+        sort(vec.begin(),vec.end(),this->comp);
 
 SPARSE MATRIX: Using hash_map of hash_maps, can store non-zero elements
 1) unordered_map<pair<int,int>,int> sparseMatrix
