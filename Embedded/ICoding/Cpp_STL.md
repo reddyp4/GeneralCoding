@@ -26,7 +26,6 @@ Get max:
 Sum: accumulate(names.begin(),names.end(),0)
 Create matrix: vector<vector<int>> myMatrix;
     Access myMatrix[i][j]
-
 names[0];names.at(0)
 names.front(); names.back()
 names[1]="name1"
@@ -37,6 +36,7 @@ for(string name: names){cout<<name}
 sorting vector: sort(vector.begin(),vector.end())
 sort(arr1.begin(),arr1.begin()+2); = sort between indices 0,2 (2 not included)
 sorting vector of vectors: vector<vector<int>> intervals
+sorting vector in reverse: std::sort(numbers.begin(), numbers.end(), std::greater<int>());
 sort(intervals.begin(),intervals.begin()+intervals.size())
 sort by x[0]: intervals.sort(key=lambda x: x[0])
 accessing elements in intervals: intervals[i][0] .. intervals[i][1]
