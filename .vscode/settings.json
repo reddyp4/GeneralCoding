@@ -71,7 +71,11 @@
         "iterator": "cpp",
         "utility": "cpp",
         "valarray": "cpp",
-        "Debug_computerSquareADC.C": "cpp"
+        "Debug_computerSquareADC.C": "cpp",
+        "ranges": "cpp",
+        "span": "cpp",
+        "regex": "cpp",
+        "stacktrace": "cpp"
     },
     "cmake.sourceDirectory": "D:/Work/github/GeneralCoding/Embedded/ICoding/OneX",
     "ros.distro": "jazzy"
