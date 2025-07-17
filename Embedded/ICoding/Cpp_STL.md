@@ -86,7 +86,8 @@ set<string> names={"name1","name2"}
 names.insert("name3");names.insert("name1");
 names.erase("name1")
 names.size()
-check if in set: 
+check if in set: set.find("name4")
+iterate in set: for(string str:set) {}
 
 unordered_set: no order within set
 #include<unordered_set>
