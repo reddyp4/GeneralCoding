@@ -96,6 +96,12 @@ names.insert("name1") doesnt do anything
 names.erase("name1") >> removes "name1"
 check if in set: 
 
+C++: 
+                Map             Unordered_map or HashMap
+Implementation  Tree            Hash-map
+Keys            Sorted          Unsorted
+Setup           map<string,int> HashMap<key,val> map;
+
 map: map<key,value> and unique, sorted
 #include<map>
 Declare: map<string,int> people={{"name1",1},{"name2",3}}
