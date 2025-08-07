@@ -40,6 +40,7 @@ Better
 class Solution {
 public:
     bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        /*
         map<int,int> myMap; //value-index
         int i=0,len1=nums.size();
         while(i<len1)   {
@@ -51,11 +52,21 @@ public:
             else    myMap[nums[i]]=i;
             i++;
         }
+        return false;*/
+        int i,j,len1=nums.size();
+        for(i=0;i<len1;i++)
+            for(j=i-k;j<=i+k;j++)   {
+                if(j>=0 && j<len1 && i!=j && nums[i]==nums[j])  {
+                    //cout<<"i:"<<i<<",nums[i]:"<<nums[i]<<",j:"<<j<<",nums[j]:"<<nums[j]<<endl;
+                    return true;
+                }
+            }
         return false;
     }
 };
 
 /*
+Hashmap solution works
 Runtime
 167
 ms
