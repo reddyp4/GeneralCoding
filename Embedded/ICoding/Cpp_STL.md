@@ -97,10 +97,11 @@ names.erase("name1") >> removes "name1"
 check if in set: 
 
 C++: 
-                Map             Unordered_map or HashMap
-Implementation  Tree            Hash-map
-Keys            Sorted          Unsorted
-Setup           map<string,int> HashMap<key,val> map;
+                    Map             Unordered_map or HashMap
+Implementation      Tree            Hash-map
+Keys                Sorted          Unsorted
+Setup               map<string,int> HashMap<key,val> map;
+Search for next key map.upper_bound(key)
 
 map: map<key,value> and unique, sorted
 #include<map>
